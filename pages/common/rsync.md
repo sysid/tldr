@@ -34,3 +34,11 @@
 - Transfer file over SSH using a different port than the default and show global progress:
 
 `rsync -e 'ssh -p {{port}}' --info=progress2 {{remote_host}}:{{path/to/remote_file}} {{path/to/local_file}}`
+
+- exlcude all but one file-type
+  When using multiple include/exclude option, the first matching rule applies.
+
+`rsync -a -m --include='*.jpg' --include='*/' --exclude='*' src_directory/ dst_directory/`
+--include='*.jpg' : - First we are including all .jpg files.
+--include='*/'    : - Then we are including all directories inside the in src_directory directory. Without this rsync will only copy '*.jpg' files in the top level directory.
+-m                : - Removes the empty directories
