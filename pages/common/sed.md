@@ -34,3 +34,22 @@
 - Replace separator `/` by any other character not used in the find or replace patterns, e.g. `#`:
 
 `sed 's#{{find}}#{{replace}}#' {{filename}}`
+
+
+```sh
+echo "US/Central - 10:26 PM (CST)" | sed -n "s/^.*-\s*\(\S*\).*$/\1/p"
+
+-n      suppress printing
+s       substitute
+^.*     anything at the beginning
+-       up until the dash
+\s*     any space characters (any whitespace character)
+\(      start capture group
+\S*     any non-space characters
+\)      end capture group
+.*$     anything at the end
+\1      substitute 1st capture group for everything on line
+p       print it
+
+sed -i.bkp "/export RUN_ID/c\export RUN_ID=$(date +%Y%m%d)" "$PROJ_DIR/service/simulation/.env.local"
+```
