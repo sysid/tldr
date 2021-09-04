@@ -35,3 +35,7 @@
 - Sample job which runs a certain script at 02:30 every Friday:
 
 `30 2 * * Fri {{/absolute/path/to/script.sh}}`
+
+
+The job defined by this string runs at startup, immediately after Linux reboots.
+`@reboot /usr/bin/crontab -l > $HOME/dev/binx/crontab/crontab.$(uname -n).bkp 2>&1`
