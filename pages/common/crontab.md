@@ -39,3 +39,20 @@
 
 The job defined by this string runs at startup, immediately after Linux reboots.
 `@reboot /usr/bin/crontab -l > $HOME/dev/binx/crontab/crontab.$(uname -n).bkp 2>&1`
+
+```bash
+# Crontab Example
+# CAVEAT: machine is on UTC
+#
+SHELL=/bin/bash
+PROJ_DIR=/home/e4madm/powerpool
+PATH=/home/e4madm/.local/bin:/home/e4madm/.asdf/shims:/home/e4madm/.asdf/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/e4madm/.asdf/installs/python/3.9.4/bin:/home/e4madm/.asdf/installs/python/3.9.4/bin:/home/e4madm/.local/bin:/home/e4madm/.local/bin
+#PATH=$PATH:$HOME/.asdf/shims
+# Powerpool Cron jobs
+#30 * * * * /home/e4madm/rsync_powerpool_tests.sh >> /home/e4madm/rsync.log 2>&1
+
+0 17 * * * (cd $PROJ_DIR && direnv exec . bash -l -c /home/e4madm/powerpool/service/simulation/scripts/sim-regression-run.sh) > /home/e4madm/sim-regression-run.log 2>&1
+#* * * * * (cd $PROJ_DIR && direnv exec . bash -l -c 'pipenv') > /home/e4madm/sim-regression-run.log 2>&1
+* * * * * /usr/bin/env > $HOME/cron-env.out
+0 5 * * * /home/e4madm/docker_prune.sh
+```
