@@ -35,3 +35,28 @@
 - Generate a JSON CLI Skeleton (useful for infrastructure as code):
 
 `aws dynamodb update-table --generate-cli-skeleton`
+
+
+```bash
+aws configure list-profiles  # show availabe named profiles
+aws configure list  # show current profile
+aws-who-am-i --profile bmwsso
+
+aws iam list-users
+aws sts get-caller-identity
+aws sts get-caller-identity --profile e4m-orbit-dev
+
+alias orbit-3cp-dev='aws eks update-kubeconfig --profile e4m-dev-3cp --region eu-central-1 --name e4m-test'
+alias orbit-3cp-mock-dev='aws eks update-kubeconfig --profile e4m-dev-3cp-mock --region eu-central-1 --name e4m-test'
+alias orbit-gitlab-dev='aws eks update-kubeconfig --profile e4m-dev-gitlab --region eu-central-1 --name e4m-test'
+alias orbit-keycloak-dev='aws eks update-kubeconfig --profile e4m-dev-keycloak --region eu-central-1 --name e4m-test'
+alias orbit-login='cdh login bmwsso'
+alias orbit-pcv-dev='aws eks update-kubeconfig --profile e4m-dev-pcv --region eu-central-1 --name e4m-test'
+alias orbit-powerpool-dev='aws eks update-kubeconfig --profile e4m-dev-powerpool --region eu-central-1 --name e4m-test'
+
+# blow will switch cluster context and kcn will set namespace on currant context
+alias k-dev='kubectl config use-context e4m-dev'
+alias k-playpen='kubectl config use-context e4m-playpen'
+alias k-prod='kubectl config use-context e4m-prod'
+alias kcn='kubectl config set-context $(kubectl config current-context) --namespace'
+```
