@@ -46,6 +46,8 @@ aws iam list-users
 aws sts get-caller-identity
 aws sts get-caller-identity --profile e4m-orbit-dev
 
+aws --profile tw sts get-caller-identity
+
 alias orbit-3cp-dev='aws eks update-kubeconfig --profile e4m-dev-3cp --region eu-central-1 --name e4m-test'
 alias orbit-3cp-mock-dev='aws eks update-kubeconfig --profile e4m-dev-3cp-mock --region eu-central-1 --name e4m-test'
 alias orbit-gitlab-dev='aws eks update-kubeconfig --profile e4m-dev-gitlab --region eu-central-1 --name e4m-test'
