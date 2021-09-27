@@ -56,6 +56,10 @@ k config use-context e4m-dev
 
 # show current ns
 kubectl config view --minify --output 'jsonpath={..namespace}'
+
+# networking
+k get nodes -o wide
+k describe node <node> -o wide
 ```
 
 ## Filter by Labeling

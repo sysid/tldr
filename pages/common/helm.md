@@ -157,3 +157,13 @@ helm package ./ourchart --destination ./
 
 # Tools
 - Helm Repo: chart museum
+
+
+# Charts
+## postgresql
+https://artifacthub.io/packages/helm/bitnami/postgresql
+-%35% [ ] expose pg via ingress: https://www.enterprisedb.com/docs/kubernetes/cloud_native_postgresql/expose_pg_services/
+
+
+# Gotchas
+- bitnami/postgresql: broken installation stays in PCV, e.g. password
