@@ -1,7 +1,8 @@
 # dpkg
 
 > Gestore di pacchetti Debian.
-> Maggiori informazioni: <https://manpages.debian.org/buster/dpkg/dpkg.1.en.html>.
+> Alcuni comandi aggiuntivi, come `dpkg deb`, hanno la propria documentazione.
+> Maggiori informazioni: <https://manpages.debian.org/latest/dpkg/dpkg.html>.
 
 - Installa un pacchetto:
 

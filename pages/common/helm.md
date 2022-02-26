@@ -7,7 +7,7 @@
 
 - Add a new helm repository:
 
-`helm repo add {{repo_name}}`
+`helm repo add {{repository_name}}`
 
 - List helm repositories:
 
@@ -19,11 +19,11 @@
 
 - Delete a helm repository:
 
-`helm repo remove {{repo_name}}`
+`helm repo remove {{repository_name}}`
 
 - Install a helm chart:
 
-`helm install {{repo_name}}/{{chart_name}}`
+`helm install {{name}} {{repository_name}}/{{chart_name}}`
 
 - Download helm chart as a tar archive:
 

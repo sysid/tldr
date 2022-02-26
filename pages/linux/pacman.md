@@ -1,19 +1,20 @@
 # pacman
 
 > Arch Linux package manager utility.
+> Some subcommands such as `pacman sync` have their own usage documentation.
 > More information: <https://man.archlinux.org/man/pacman.8>.
 
 - Synchronize and update all packages:
 
-`pacman --sync --refresh --sysupgrade`
+`sudo pacman --sync --refresh --sysupgrade`
 
 - Install a new package:
 
-`pacman --sync {{package_name}}`
+`sudo pacman --sync {{package_name}}`
 
 - Remove a package and its dependencies:
 
-`pacman --remove --recursive {{package_name}}`
+`sudo pacman --remove --recursive {{package_name}}`
 
 - Search the package database for a regular expression or keyword:
 
@@ -33,4 +34,4 @@
 
 - Empty the entire pacman cache:
 
-`pacman --sync --clean --clean`
+`sudo pacman --sync --clean --clean`

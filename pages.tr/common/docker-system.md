@@ -1,7 +1,7 @@
 # docker system
 
 > Docker verilerini yönet ve sistem bilgisi görüntüle.
-> More information: <https://docs.docker.com/engine/reference/commandline/system/>.
+> Daha fazla bilgi: <https://docs.docker.com/engine/reference/commandline/system/>.
 
 - Yardım göster:
 

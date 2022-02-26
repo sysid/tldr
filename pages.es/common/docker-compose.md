@@ -1,7 +1,7 @@
 # docker-compose
 
 > Ejecuta y gestiona múltiples contenedores Docker.
-> Más información: <https://docs.docker.com/compose/reference/overview/>.
+> Más información: <https://docs.docker.com/compose/reference/>.
 
 - Lista los contenedores en ejecución:
 
@@ -30,3 +30,7 @@
 - Sigue los registros de todos los contenedores:
 
 `docker-compose logs --follow`
+
+- Sigue los registros de un contenedor específico:
+
+`docker-compose logs --follow {{nombre_de_contenedor}}`

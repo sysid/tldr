@@ -78,7 +78,7 @@ exceptions can always be considered, via open community discussion.)
 
 ## How to change roles
 
-*Note: this section is aimed at owners in the tldr-pages organization
+*Note: This section is aimed at owners in the tldr-pages organization
 (i.e. the group of people who are able to perform these changes).*
 
 If you notice a contributor being particularly active,
@@ -191,14 +191,13 @@ using one of the template messages below as a base.
    go to https://github.com/orgs/tldr-pages/people, click the gear icon in their row,
    and select the "Convert to outside collaborator" menu entry.
 
-3. Open a PR moving their name to the "Past organization owners" section
+3. Open a PR moving their name to the "Past organization members" section
    in [MAINTAINERS.md](MAINTAINERS.md).
    Make sure to include `Closes #<issue number>` in the PR description.
    The issue will then be automatically closed once the PR is merged.
 
-
 ## Who can change roles
 Any member of the community can (and is encouraged to) propose role changes
 by following the process outlined [above](#how-to-change-roles).
-[Owners of the tldr-pages organization](MAINTAINERS.md#current-organization-owners)
+[Owners of the tldr-pages organization](MAINTAINERS.md#organization-owners)
 can then perform the actual role changes.
