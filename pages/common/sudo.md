@@ -34,3 +34,13 @@
 - List the allowed (and forbidden) commands for the invoking user:
 
 `sudo --list`
+
+
+```bash
+################################################################################
+# TW
+################################################################################
+# add user without password
+EDITOR=vim visudo
+username     ALL=(ALL) NOPASSWD:ALL
+```
