@@ -12,7 +12,7 @@
 
 `rsync {{remote_host}}:{{path/to/remote_file}} {{path/to/local_directory}}`
 
-- Transfer file in [a]rchive (to preserve attributes) and compressed ([z]ipped) mode with [v]erbose and [h]uman-readable [P]rogress:
+- Transfer file in [a]rchive (to preserve attributes) and compressed ([z]ipped) mode with [v]erbose and [h]uman-readable [P]rogress/partial:
 
 `rsync -azvhP {{path/to/local_file}} {{remote_host}}:{{path/to/remote_directory}}`
 
@@ -38,6 +38,7 @@
 
 - exlcude all but one file-type
   When using multiple include/exclude option, the first matching rule applies.
+
 
 `rsync -a -m --include='*.jpg' --include='*/' --exclude='*' src_directory/ dst_directory/`
 --include='*.jpg' : - First we are including all .jpg files.
