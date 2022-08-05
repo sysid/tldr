@@ -1,15 +1,32 @@
 # jq
 
-- Output all elements from arrays (or all the values from objects) in a JSON file:
-`jq '.[]' {{file.json}}`
+> A command-line JSON processor that uses a domain-specific language.
+> More information: <https://stedolan.github.io/jq/manual/>.
 
-- Read JSON objects from a file into an array, and output it (inverse of `jq .[]`):
-```bash
-seq 10 | jq -s '.
-```
+- Execute a specific expression (print a colored and formatted json):
 
-- Output the element-slice in a JSON file:
+`{{cat path/to/file.json}} | jq '{{.}}'`
 
-`jq '.[n:m]' {{file.json}}`
+- Execute a specific script:
 
-- Output the value of a given key of each element in a JSON text from stdin:
+`{{cat path/to/file.json}} | jq --from-file {{path/to/script.jq}}`
+
+- Pass specific arguments:
+
+`{{cat path/to/file.json}} | jq {{--arg "name1" "value1" --arg "name2" "value2" ...}} '{{. + $ARGS.named}}'`
+
+- Print specific keys:
+
+`{{cat path/to/file.json}} | jq '{{.key1, .key2, ...}}'`
+
+- Print specific array items:
+
+`{{cat path/to/file.json}} | jq '{{.[index1], .[index2], ...}}'`
+
+- Print all array items/object keys:
+
+`{{cat path/to/file.json}} | jq '.[]'`
+
+- Add/remove specific keys:
+
+`{{cat path/to/file.json}} | jq '{{.}} {{+|-}} {{{"key1": "value1", "key2": "value2", ...}}}'`
