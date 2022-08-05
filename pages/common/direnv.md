@@ -22,3 +22,9 @@
 - Print some debug status information:
 
 `direnv status`
+
+# Custom ...........................................................................................
+[Python · direnv/direnv Wiki · GitHub](https://github.com/direnv/direnv/wiki/Python)
+
+## Configuration
+global `.direnvrc` which essentially gets sourced by every local `.envrc`
