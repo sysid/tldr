@@ -54,6 +54,12 @@ If you are an owner of the organization, you can see an automated list
   [10 December 2021](https://github.com/tldr-pages/tldr/issues/7522) — present
 - **Nicolas Hansse ([@Nico385412](https://github.com/Nico385412))**:
   [19 July 2022](https://github.com/tldr-pages/tldr/issues/8224) — present
+- **K.B.Dharun Krishna ([@kbdharun](https://github.com/kbdharun))**:
+  [06 August 2022](https://github.com/tldr-pages/tldr/issues/8309) — present
+- **Adrien Thebo ([@adrienthebo](https://github.com/adrienthebo))**:
+  [17 August 2022](https://github.com/tldr-pages/tldr/issues/8321) — present
+- **Cairn ([@CairnThePerson](https://github.com/CairnThePerson))**:
+  [1 September 2022](https://github.com/tldr-pages/tldr/issues/8438) — present
 - Owen Voke ([@owenvoke](https://github.com/owenvoke))
   [11 January 2018](https://github.com/tldr-pages/tldr/issues/1885) — [26 August 2018](https://github.com/tldr-pages/tldr/issues/2258)
 - Marco Bonelli ([@mebeim](https://github.com/mebeim)):
@@ -102,8 +108,6 @@ An automated list can be found [here](https://github.com/orgs/tldr-pages/people)
   [18 March 2021](https://github.com/tldr-pages/tldr/issues/5473) - present
 - **Tan Siret Akıncı ([@yutyo](https://github.com/yutyo))**:
   [7 April 2021](https://github.com/tldr-pages/tldr/issues/5702) - present
-- **Marcher Simon ([@marchersimon](https://github.com/marchersimon))**:
-  [9 April 2021](https://github.com/tldr-pages/tldr/issues/5722) — present
 - **Florian Benscheidt ([@Waples](https://github.com/Waples))**:
   [19 May 2021](https://github.com/tldr-pages/tldr/issues/5989) — present
 - **Muhammad Falak R Wani ([@mfrw](https://github.com/mfrw))**:
@@ -126,6 +130,8 @@ An automated list can be found [here](https://github.com/orgs/tldr-pages/people)
   [2 February 2021](https://github.com/tldr-pages/tldr/issues/5219) — [25 June 2021](https://gitter.im/tldr-pages/tldr?at=60d615598a40b117282a96d7)
 - CleanMachine1 ([@CleanMachine1](https://github.com/CleanMachine1)):
   [14 June 2021](https://github.com/tldr-pages/tldr/issues/6123) — [14 December 2021](https://github.com/tldr-pages/tldr/issues/7541)
+- Marcher Simon ([@marchersimon](https://github.com/marchersimon)):
+  [9 April 2021](https://github.com/tldr-pages/tldr/issues/5722) — [9 August 2022](https://github.com/tldr-pages/tldr/issues/7540)
 
 ## Organization owners
 
@@ -149,6 +155,8 @@ An automated list can be found [here](https://github.com/orgs/tldr-pages/people)
   [7 April 2021](https://github.com/tldr-pages/tldr/issues/5703) - present
 - **CleanMachine1 ([@CleanMachine1](https://github.com/CleanMachine1))**:
   [14 December 2021](https://github.com/tldr-pages/tldr/issues/7541) - present
+- **Marcher Simon ([@marchersimon](https://github.com/marchersimon))**:
+  [9 August 2022](https://github.com/tldr-pages/tldr/issues/7540) — present
 - Igor Shubovych ([@igorshubovych](https://github.com/igorshubovych)):
   until [18 January 2018](https://github.com/tldr-pages/tldr/issues/1878#issuecomment-358610454)
 - Ruben Vereecken ([@rubenvereecken](https://github.com/rubenvereecken)):

@@ -4,14 +4,19 @@ on:
   schedule:
   - cron: '0 0 * * *'
 
+permissions: {}
 jobs:
   stale:
+    permissions:
+      issues: write # to close stale issues (actions/stale)
+      pull-requests: write # to close stale PRs (actions/stale)
+
     runs-on: ubuntu-latest
 
     steps:
 
     - name: Stale Bot
-      uses: actions/stale@v5
+      uses: actions/stale@v6
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 
