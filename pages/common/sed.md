@@ -37,6 +37,7 @@
 
 
 ```sh
+# extract 10:26 from line
 echo "US/Central - 10:26 PM (CST)" | sed -n "s/^.*-\s*\(\S*\).*$/\1/p"
 
 -n      suppress printing
@@ -50,6 +51,10 @@ s       substitute
 .*$     anything at the end
 \1      substitute 1st capture group for everything on line
 p       print it
+
 # create backup
 sed -i.bkp "/export RUN_ID/c\export RUN_ID=$(date +%Y%m%d)" "$PROJ_DIR/service/simulation/.env.local"
+
+# replace line starting with
+sed -i "/export GH_ENTERPRISE_TOKEN/c\export GH_ENTERPRISE_TOKEN=ghp_xxx" .envrc
 ```
