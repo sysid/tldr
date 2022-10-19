@@ -1,7 +1,7 @@
 # poetry
 
 > Manage Python packages and dependencies.
-> More information: <https://python-poetry.org/docs>.
+> More information: <https://python-poetry.org/docs/cli/>.
 
 - Create a new Poetry project in the directory with a specific name:
 
@@ -27,6 +27,7 @@
 
 `poetry run {{command}}`
 
+<<<<<<< HEAD
 
 
 # Custom ...........................................................................................
@@ -50,3 +51,12 @@ poetry completions bash > $(brew --prefix)/etc/bash_completion.d/poetry.bash-com
 poetry config virtualenvs.in-project true
 vim "/Users/Q187392/Library/Application Support/pypoetry/config.toml"
 ```
+=======
+- Bump the minor version of the project in `pyproject.toml`:
+
+`poetry version minor`
+
+- List all poetry subcommands:
+
+`poetry list`
+>>>>>>> 59e59ea818f8c7c227993532923f450b3c45701d
