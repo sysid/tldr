@@ -25,6 +25,7 @@
 `{{arguments_source}} | xargs -P {{max-procs}} {{command}}`
 
 
+# Custom  ..........................................................................................
 https://www.oilshell.org/blog/2021/08/xargs.html:
 
 - It's an adapter between text streams and `argv` arrays
@@ -69,4 +70,23 @@ find ... | head | xargs ...
 # Believe it or not, I use this to randomize music
 # and videos :)
 find ... | shuf | xargs mplayer
+```
+
+- When you use `-exec` to do the work you run a separate instance of the called program for each element of input.
+   So if find comes up with 10,000 results, you run exec 10,000 times.
+- With xargs, you build up the input into bundles and run them through the command as few times as possible, which is often just once. When dealing with hundreds or thousands of elements this is a big win for xargs.
+- `-print0` Tells find to print all results to std, each separated with the ASCII NUL character '\000
+- `-0` Tells xargs that the input will be separated with the ASCII NUL character '\000
+    The advantage is that all results will be handed over to xargs as a single string without newline separation. NUL charater separation is a way to escape files which also contain spaces in their filenames
+```bash
+# blank is not separator
+find . -name "*.jpg" -print0 | xargs -0 ls
+# execut with 1 parameter
+find .[args] -print0 | xargs -0 -n1 [cmd]
+# print command and executie
+echo 'one two three' | xargs -t rm
+# change delimiter (allow spaces in path)
+xargs -d '\n' mplayer
+# define args as {}
+find . -name '.envrc' -print0 | xargs -0 -I '{}' echo cp '{}' $HOME/dev/'{}'
 ```

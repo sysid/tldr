@@ -34,3 +34,10 @@
 - Find empty (0 byte) files and delete them:
 
 `find {{root_path}} -type {{f}} -empty -delete`
+
+
+# Custom  ..........................................................................................
+```bash
+# remove dot slash of relative path
+find -type f -printf '%P\n'
+```
