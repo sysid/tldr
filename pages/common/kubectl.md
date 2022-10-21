@@ -42,3 +42,8 @@ https://learnk8s.io/blog/kubectl-productivity
 `k cp file pod:/target`
 
 
+# Custom ...........................................................................................
+
+kubectl krew install exec-as
+kubectl exec-as -u <username>
+kubectl exec-as -u <username> <podname> -- /bin/bash
