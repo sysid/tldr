@@ -35,3 +35,13 @@
 - Run a class with a main method:
 
 `mvn exec:java -Dexec.mainClass="{{com.example.Main}}" -Dexec.args="{{arg1 arg2}}"`
+
+
+
+# Custom
+```bash
+# Donwload Docs
+mvn dependency:resolve -Dclassifier=javadoc
+# Donwload Sources
+mvn dependency:sources dependency:resolve -Dclassifier=javadoc
+```
