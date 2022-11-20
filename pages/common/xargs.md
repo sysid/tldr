@@ -81,12 +81,22 @@ find ... | shuf | xargs mplayer
 ```bash
 # blank is not separator
 find . -name "*.jpg" -print0 | xargs -0 ls
+
 # execut with 1 parameter
 find .[args] -print0 | xargs -0 -n1 [cmd]
+
 # print command and executie
 echo 'one two three' | xargs -t rm
+
 # change delimiter (allow spaces in path)
 xargs -d '\n' mplayer
+
 # define args as {}
 find . -name '.envrc' -print0 | xargs -0 -I '{}' echo cp '{}' $HOME/dev/'{}'
+```
+
+
+## Multiple Arguements
+```bash
+echo argument1 argument2 argument3 | xargs -l bash -c 'echo this is first:$0 second:$1 third:$2'
 ```
