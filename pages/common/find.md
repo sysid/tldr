@@ -43,9 +43,19 @@ find -type f -printf '%P\n'
 
 find /path/to/files/ -type f -name '*.md' -mtime +30 -size -4M -not -path './tmp/*' -not! -path './.venv/*' -print0 | xargs -0 printf '%s\n'
 
+# exclude paths
 find . -name '.envrc' \
     -not -path './crypt/*' \
     -not -path './.venv/*' \
     -type f \
     -printf '%P' | gxargs --no-run-if-empty --verbose -n 1 -d $'\n' -- $0 _cp_one "$BASEPATH"
+
+# find broken links
+find /target/dir -type l ! -exec test -e {} \; -print
+
+# chain commands
+find /target/dir -type l ! -exec test -e {} \; -exec rm {} \;
+
+# reverse find links associated with file (inode)
+find -L /Users/q187392/dev/s/public/ -samefile ref-file
 ```

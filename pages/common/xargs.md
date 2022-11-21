@@ -25,7 +25,21 @@
 `{{arguments_source}} | xargs -P {{max-procs}} {{command}}`
 
 
-# Custom  ..........................................................................................
+# xargs ............................................................................................
+```bash
+# avoid empty runs
+find . -name '.run' \
+    -not -path './crypt/*' \
+    -not -path './.venv/*' \
+    -type d \
+    -printf '%P\n' | gxargs --no-run-if-empty --verbose -n 1 -d $'\n'  -- $0 _cp_one "$BASEPATH"
+
+# Multiple Arguements
+echo argument1 argument2 argument3 | xargs -l bash -c 'echo this is first:$0 second:$1 third:$2'
+find . -name '.envrc' -print0 | xargs -0 -I '{}' echo cp '{}' $HOME/dev/'{}'  # define args as {}
+```
+
+## General
 https://www.oilshell.org/blog/2021/08/xargs.html:
 
 - It's an adapter between text streams and `argv` arrays
@@ -37,12 +51,13 @@ hi alice
 hi bob
 ```
 What's happening here?
-1. xargs splits the input stream on whitespace, producing 5 arguments, alice and bob.
-2. We passed -n 5, so xargs then passes each argument to a separate echo hi $ARG command. By default, it passes as many args to a command as possible, like echo hi alice bob.
+1. xargs splits the input stream on whitespace, producing 2 arguments, alice and bob.
+2. We passed `-n 1`, so xargs then passes each argument to a separate echo hi $ARG command.
+   By default, it passes as many args to a command as possible, like `echo hi alice bob`.
 
 3 Things to master:
-1. The algorithm for splitting text into arguments (-d, -0). Discussed below.
-2. How many arguments are passed to each process (-n). This determines the total number of processes started.
+1. The algorithm for splitting text into arguments (-d, -0).
+2. How many arguments are passed to each process (-n)
 3. Whether processes are run in sequence or in parallel (-P).
 
 Choose One of 3 Ways of Splitting stdin
@@ -53,8 +68,8 @@ Choose One of 3 Ways of Splitting stdin
 avoid the mini language of `-I {}` and just use shell by recursively invoking shell functions.
 Use `-n` To Batch Args, not `-L`
 
-1. Incremental Development: Figure out what to do on each item (what's a task?), then figure out what items to do it on (what tasks should I run?)
-2. Easy Testing by using echo to preview tasks. This avoids running long batch jobs on the wrong input!
+1. Incremental Development: Figure out what to do on each item (what's a task?)
+2. Easy Testing by using echo to preview tasks.
 4. xargs lets you start as few processes as possible.
 5. It also lets you start those processes in parallel. You can't do this with a for loop.
 6. Fewer Languages to Remember. We use plain shell and a few flags to xargs.
@@ -63,18 +78,17 @@ Use `-n` To Batch Args, not `-L`
 # Filter tasks by name
 find ... | grep ... | xargs ...
 
-# Limit the number of tasks.  I use this all the time
-# for faster testing
+# Limit the number of tasks.  I use this all the time for faster testing
 find ... | head | xargs ...
 
-# Believe it or not, I use this to randomize music
-# and videos :)
+# Believe it or not, I use this to randomize music and videos :)
 find ... | shuf | xargs mplayer
 ```
 
+## find
 - When you use `-exec` to do the work you run a separate instance of the called program for each element of input.
    So if find comes up with 10,000 results, you run exec 10,000 times.
-- With xargs, you build up the input into bundles and run them through the command as few times as possible, which is often just once. When dealing with hundreds or thousands of elements this is a big win for xargs.
+- With xargs, you build up the input into bundles and run them through the command as few times as possible, which is often just once.
 - `-print0` Tells find to print all results to std, each separated with the ASCII NUL character '\000
 - `-0` Tells xargs that the input will be separated with the ASCII NUL character '\000
     The advantage is that all results will be handed over to xargs as a single string without newline separation. NUL charater separation is a way to escape files which also contain spaces in their filenames
@@ -89,14 +103,5 @@ find .[args] -print0 | xargs -0 -n1 [cmd]
 echo 'one two three' | xargs -t rm
 
 # change delimiter (allow spaces in path)
-xargs -d '\n' mplayer
-
-# define args as {}
-find . -name '.envrc' -print0 | xargs -0 -I '{}' echo cp '{}' $HOME/dev/'{}'
-```
-
-
-## Multiple Arguements
-```bash
-echo argument1 argument2 argument3 | xargs -l bash -c 'echo this is first:$0 second:$1 third:$2'
+xargs -d $'\n' mplayer
 ```
