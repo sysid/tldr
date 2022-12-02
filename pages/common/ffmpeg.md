@@ -48,4 +48,38 @@ ffmpeg -i videoName.mov -c:v libvpx -crf 10 -b:v 1M -c:a libvorbis videoName.web
 
 # convert .mov to .ogg
 ffmpeg -i videoName.mov -codec:v libtheora -qscale:v 7 -codec:a libvorbis -qscale:a 5 videoName.ogg
+
+
+# Convert wav to mp3
+ffmpeg -i bbb_audio.wav -ac 2 -ar 44100 -b:a 320k bbb_audio_hqfull.mp3
+
+# Convert wav to m4a (aac)
+ffmpeg -i bbb_audio.wav -ac 2 -ar 44100 -b:a 320k bbb_audio_hqfull.m4a
+
+# Convert wav to ogg (vorbis)
+ffmpeg -i bbb_audio.wav -ac 2 -ar 44100 -b:a 320k bbb_audio_hqfull.ogg
 ```
+
+## Record on OSX
+```bash
+# OSX: list devices
+ffmpeg -f avfoundation -list_devices true -i ""
+
+ffmpeg -f avfoundation -i ":1" -t 10 audiocapture.mp3
+# -f = "force format". In this case we're forcing the use of AVFoundation
+# -i = input source. Typically it's a file, but you can use devices.
+#   "0:1" = Record both audio and video from FaceTime camera and built-in mic
+#   "0" = Record just video from FaceTime camera
+#   ":1" = Record just audio from built-in mic
+# -t = time in seconds. If you want it to run indefinitely until you stop it (ControlC) omit this value (not recommended)
+
+# Stream to remote host
+ffmpeg -f avfoundation -i ":1" -t 10 -f mpegts "tcp://remote_host_or_IP_:port"  # -f MPEG Transport Stream
+# Set remote computer to "listen"
+ffplay -i tcp://local_host_or_IP_addr:port?listen -hide_banner
+# local_host_or_IP_addr:port is the IP address or hostname and the TCP port of the computer that's listening (not the computer that's streaming).
+# ?listen is required to put it into "listen mode" otherwise it will time out if the stream is not there.
+```
+
+## Resources
+[FFmpeg - Ultimate Guide | IMG.LY Blog](https://img.ly/blog/ultimate-guide-to-ffmpeg/)
