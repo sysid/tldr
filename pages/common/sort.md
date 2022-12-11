@@ -34,3 +34,9 @@
 - Sort numbers with exponents:
 
 `sort --general-numeric-sort {{path/to/file}}`
+
+
+# Costom ...........................................................................................
+```bash
+bbt 2>&1 | sort --field-separator ':' -k 2
+```
