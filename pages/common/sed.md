@@ -12,10 +12,6 @@
 
 `{{command}} | sed -f {{path/to/script.sed}}`
 
-- Replace all `apple` (extended regex) occurrences with `APPLE` (extended regex) in all input lines and print the result to `stdout`:
-
-`{{command}} | sed -E 's/(apple)/\U\1/g'`
-
 - Print just a first line to `stdout`:
 
 `{{command}} | sed -n '1p'`
@@ -37,6 +33,7 @@
 `sed 's#{{find}}#{{replace}}#' {{filename}}`
 
 
+# Custom ...........................................................................................
 ```sh
 # extract 10:26 from line
 echo "US/Central - 10:26 PM (CST)" | sed -n "s/^.*-\s*\(\S*\).*$/\1/p"
