@@ -8,7 +8,7 @@
 [![license][license-image]][license-url]
 
 [github-actions-url]: https://github.com/tldr-pages/tldr/actions
-[github-actions-image]: https://img.shields.io/github/workflow/status/tldr-pages/tldr/CI.svg
+[github-actions-image]: https://img.shields.io/github/actions/workflow/status/tldr-pages/tldr/ci.yml?branch=main
 [gitter-url]: https://gitter.im/tldr-pages/tldr
 [gitter-image]: https://img.shields.io/badge/chat-on_gitter-deeppink
 [prs-merged-url]: https://github.com/tldr-pages/tldr/pulls?q=is:pr+is:merged
@@ -87,6 +87,12 @@ Some ways to contribute include:
 All `tldr` pages are written in markdown, so they can be edited quite easily and changes can be submitted in
 pull requests here using Git on the command-line or
 using the GitHub web interface.
+
+But we already have some plugins for different editors to enhance the tldr page editing experience:
+
+- [Emacs](https://github.com/tldr-pages/tldr-emacs-extension)
+
+For editors without a plugin system, we provide a set of configurations in a [separate repo](https://github.com/tldr-pages/tldr-editor-configs).
 
 We strive to maintain a [welcoming and collaborative](GOVERNANCE.md) community.
 If it's your first time contributing, have a look at the [contributing guidelines](CONTRIBUTING.md), and go ahead!
