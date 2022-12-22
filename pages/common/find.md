@@ -50,6 +50,9 @@ find . -name '.envrc' \
     -type f \
     -printf '%P' | gxargs --no-run-if-empty --verbose -n 1 -d $'\n' -- $0 _cp_one "$BASEPATH"
 
+# replace links with files
+find ./ -not -path './.venv/*' -not -path './.git/*' -type l -print0|xargs -0 -i sh -c 'cp --remove-destination  $(readlink "{}") "{}" '
+
 # find broken links
 find /target/dir -type l ! -exec test -e {} \; -print
 
