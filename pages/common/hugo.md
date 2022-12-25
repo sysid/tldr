@@ -54,10 +54,23 @@ Then your project will load without errors.
 - wait for 4 for linebreaks
 [Fix MathJax cannot newline in Hugo - KevinZonda's Blog](https://blog.kevinzonda.com/post/fix-mathjax-newline/)
 [The line break(\\) is not work · Issue #2312 · mathjax/MathJax · GitHub](https://github.com/mathjax/MathJax/issues/2312)
+
 [mathjax - How to use markdown syntax to write math in Hugo? - Stack Overflow](https://stackoverflow.com/questions/64050359/how-to-use-markdown-syntax-to-write-math-in-hugo)
 pandoc/reveal.js: https://discourse.gohugo.io/t/mathjax-newlines-in-hugo-pandoc/28233
 
+[How to Add Math Expressions to Hugo Blog - the Shortest Guide Possible](https://www.mrnice.dev/posts/how-to-add-math-expressions-to-hugo-blog-the-shortest-guide-possible/#inline-math-expressions)
 [Hugo Bear Blog |Hugo Themes](https://themes.gohugo.io/themes/hugo-bearblog/)
+
+### Gotcha
+```latex
+- boldsymbol instead of bold
+
+- Use \textbf instead of \text:
+  \boldsymbol{A_{\textbf{Circle}}}
+
+\\() instead of $..$
+line-break: \\\\ instead of \\
+```
 
 ## Images
 Option 1.
@@ -74,6 +87,13 @@ Option 2.
 ### Center and size
 {{< figure src="/path/to/image.png" width="100%" class="center" >}}
 
+
+## Video
+[Hugo : create a shortcode for local videos | Roneo.org](https://roneo.org/en/hugo-create-a-shortcode-for-local-videos/)
+If your video link is:
+
+https://www.youtube.com/watch?v=w7Ft2ymGmfc
+{{< youtube w7Ft2ymGmfc >}}
 
 ## Code Blocks
 - configuration of theme: `config.toml`
@@ -118,4 +138,11 @@ For example:
 If you are using a custom theme, you can add your custom CSS to the theme's CSS stylesheet.
 This can be a good option if you want to make global style changes to your site.
 To do this, you can add your CSS rules to the css/main.css file in your theme's static directory.
->>>>>>> 290673506bf419ae6841254b9c541ae1febf3171
+
+
+
+# Gotcha ...........................................................................................
+## Config not working
+/Users/Q187392/dev/s/private/sysid-blog/layouts/partials/footer.html:
+inline equation marker not working
+[javascript - MathJax config is not taking ## as inline Math delimiter - Stack Overflow](https://stackoverflow.com/questions/72124916/mathjax-config-is-not-taking-as-inline-math-delimiter)
