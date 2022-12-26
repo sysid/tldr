@@ -58,6 +58,9 @@ ffmpeg -i bbb_audio.wav -ac 2 -ar 44100 -b:a 320k bbb_audio_hqfull.m4a
 
 # Convert wav to ogg (vorbis)
 ffmpeg -i bbb_audio.wav -ac 2 -ar 44100 -b:a 320k bbb_audio_hqfull.ogg
+
+# resample/resize: https://ottverse.com/change-resolution-resize-scale-video-using-ffmpeg/
+ffmpeg -i input.mp4 -vf scale=1280:720 -preset slow -crf 18 output.mp4
 ```
 
 ## Record on OSX
