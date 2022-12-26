@@ -33,21 +33,23 @@
 
 
 # Custom ...........................................................................................
-You have a theme you added as a git submodule and you recently re-cloned your project. Guess what? Your submodule needs to be re-downloaded as well.
 
-You can do this with:
+## Ops
+- remove/empty baseURL from config for relative URLs (`absURL` not working then)
+```bash
+hugo server (-D)  # with drafts
 
+# You have a theme you added as a git submodule and you recently re-cloned your project. Guess what? Your submodule needs to be re-downloaded as well.
 git submodule init
 git submodule update
-Then your project will load without errors.
+```
 
 ## Concepts
 - [page bundles](https://gohugo.io/content-management/page-bundles/), those directories with index.md or `_index.md` files at their root.
 - Page resources are only available to the page with which they are bundled.
 
 ### Themes and Layouts
-- your site's layout files will override theme layouts with the same name and relative location.
-- A theme can also have static content (style sheets, images etc.), data files and i18n language files, so there is more to it. The basic motivation behind themes is to be able to reuse other's work
+- your layout files will override theme layouts with the same name and relative location.
 - [website/layouts at main · letsencrypt/website · GitHub](https://github.com/letsencrypt/website/tree/main/layouts): no thema
 
 ## MathJax
@@ -72,6 +74,7 @@ pandoc/reveal.js: https://discourse.gohugo.io/t/mathjax-newlines-in-hugo-pandoc/
 line-break: \\\\ instead of \\
 ```
 
+
 ## Images
 Option 1.
 - Put all of your images in the static/ directory. Then reference the image file with a leading slash:
@@ -95,11 +98,17 @@ If your video link is:
 https://www.youtube.com/watch?v=w7Ft2ymGmfc
 {{< youtube w7Ft2ymGmfc >}}
 
+
 ## Code Blocks
 - configuration of theme: `config.toml`
 - https://gohugo.io/content-management/syntax-highlighting/#highlight-shortcode
 - themes: https://help.farbox.com/pygments.html
 - you can specify the path to a custom CSS file if you want to use a different theme.
+```toml
+# code black themes: https://stackoverflow.com/a/38861541/8212129
+PygmentsCodeFences = true
+PygmentsStyle = "pastie"  #"friendly" # "native"  #"emacs"  #"vim"  #!"autumn"  #!"tango"  #!"trac" #!"vs"   #! "murphy"   #"default" # "borland" # "manni" # "darcula" "bw"
+```
 
 ## Custom Partials
 you can create custom partials and save them in the layouts/partials directory of your theme.
@@ -142,6 +151,8 @@ To do this, you can add your CSS rules to the css/main.css file in your theme's 
 
 
 # Gotcha ...........................................................................................
+- baseURL must not have trailing slash
+
 ## Config not working
 /Users/Q187392/dev/s/private/sysid-blog/layouts/partials/footer.html:
 inline equation marker not working
