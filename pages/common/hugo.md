@@ -149,6 +149,8 @@ This can be a good option if you want to make global style changes to your site.
 To do this, you can add your CSS rules to the css/main.css file in your theme's static directory.
 
 
+## Google Analytics
+[Integrate Google Analytics with Hugo Theme](https://www.kiroule.com/article/integrate-google-analytics-with-hugo-theme/)
 
 # Gotcha ...........................................................................................
 - baseURL must not have trailing slash
