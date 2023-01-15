@@ -41,6 +41,21 @@
 # Cargo ............................................................................................
 - dev-dependencies documentation cannot be generated
 
+## Operations
+```bash
+cargo tree
+cargo tree --prefix none
+
+# find dependencies that can optionally use a crate as well, e.g. Tokio has a feature flag to enable parking_lot, but I want to find all my dependencies that have similar feature flags.
+cargo metadata --format-version 1 | jq -c '.packages[] | select(
+    .dependencies | any(
+        (.name == "parking_lot")
+        and
+        (.optional == true)
+    )
+) | .name'
+```
+
 ## Structure
 [Package Layout - The Cargo Book](https://doc.rust-lang.org/cargo/guide/project-layout.html)
 
