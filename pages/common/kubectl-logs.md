@@ -30,3 +30,12 @@
 - Show the 10 most recent logs in a pod:
 
 `kubectl logs --tail={{10}} {{pod_name}}`
+
+# Custom  ...........................................................................................
+```bash
+# stream/tail all logs
+k get pods --show-labels
+k logs -f -l app=gldpm-backend --all-containers
+k logs --tail 100000 -l app=poi-fb-backend-prod --all-containers
+k logs -f -l app=gldpm-backend-prod -c gldpm-backend-prod  # one container
+```

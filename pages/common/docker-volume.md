@@ -34,3 +34,20 @@
 - Display help for a subcommand:
 
 `docker volume {{subcommand}} --help`
+
+
+
+# Operations .......................................................................................
+
+```bash
+# see content of named volume
+docker run --rm -i -v=sim-data:/tmp/myvolume busybox find /tmp/myvolume
+
+# to find and remove dangling volumes:
+docker volume ls -f dangling=true
+docker volume rm <volume name>
+docker volume prune
+
+# remove named voluems
+dc down -v
+```

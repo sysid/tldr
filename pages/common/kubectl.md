@@ -42,8 +42,44 @@ https://learnk8s.io/blog/kubectl-productivity
 `k cp file pod:/target`
 
 
-# Custom ...........................................................................................
+# Ops, Operations........................................................................................
+[kubectl logs]($HOME/.cache/tldr/pages/common/kubectl-logs.md)
+[kubectl get]($HOME/.cache/tldr/pages/common/kubectl-get.md)
+[kubectl run]($HOME/.cache/tldr/pages/common/kubectl-run.md)
 
-kubectl krew install exec-as
-kubectl exec-as -u <username>
-kubectl exec-as -u <username> <podname> -- /bin/bash
+# Debugging ........................................................................................
+- [look up resource definition](https://learnk8s.io/blog/kubectl-productivity#2-quickly-look-up-resource-specifications)
+```bash
+# print environment
+kubectl exec kube -- env
+
+# deploy kubernete-debugger image into namespace
+k run twdbg --rm -it --image=621590899119.dkr.ecr.eu-central-1.amazonaws.com/e4m/kubernetes-debugger:latest --comand -- /bin/bash
+
+k logs xxx -p  # previous (crashed)
+k get events -w  # watch
+k get all -A
+```
+
+# Create/Delete/Update ............................................................................
+```bash
+# create
+k describe deployment asset-control  # get parameters to replace __xxx__ (analog deployer)
+k apply -f deployment.yaml
+k get deployments.apps
+
+# delete (bulk) by file or labels
+k delete deployment,services -l app=nginx
+k delete -f https://k8s.io/examples/application/nginx-app.yaml
+
+# delete and recreate
+k replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
+```
+
+# Installation/Configuration ......................................................................
+- Gotcha: manage `kubeclt` with asdf: manage version skew (client/server)
+- Configuration Location: `~/.kube/config`
+```bash
+# get cluster credentials, does not matter which project
+aws eks update-kubeconfig --profile e4m-dev-gldpm --region eu-central-1 --name e4m-test --alias e4m-dev-test-gldpm
+```
