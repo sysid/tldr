@@ -28,21 +28,4 @@
 `terraform destroy`
 
 
-# TF
-[course repo](https://github.com/ned1313/Getting-Started-Terraform)
-- idempotent, declarative, push
-- provider, plugins, statefile
--
-## Variables
-- needs to be declared
-
-## Provider
-
-## Datasource
-- ask for information
-
-## Resource
-
-## Output
-
-THE TRIPLET
+# Operations .......................................................................................

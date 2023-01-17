@@ -38,10 +38,9 @@
 
 
 
-# Cargo ............................................................................................
+# Oprations ............................................................................................
 - dev-dependencies documentation cannot be generated
 
-## Operations
 ```bash
 cargo tree
 cargo tree --prefix none
@@ -56,7 +55,7 @@ cargo metadata --format-version 1 | jq -c '.packages[] | select(
 ) | .name'
 ```
 
-## Structure
+# Structure ........................................................................................
 [Package Layout - The Cargo Book](https://doc.rust-lang.org/cargo/guide/project-layout.html)
 
    project_name/
@@ -80,14 +79,14 @@ cargo metadata --format-version 1 | jq -c '.packages[] | select(
 The examples directory contains example code that demonstrates how to use the crate. Each example file is a Rust source file with a name that ends in `*.rs`.
 
 
-### main.rs, Binaries
+## main.rs, Binaries
 [Cargo Targets - The Cargo Book](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#binaries)
 `main.rs` file is the entry point for an executable crate.
 If the crate has multiple executables, each executable will have its own `*.rs` file in the `src/bin` directory.
 Instead of src/main.rs you can have src/bin/tool1.rs and src/bin/tool2.rs etc. If you then have src/lib.rs then all those can access a single support crate for code
 
 There are two ways to create executable targets that don't have main.rs at their root.
-#### Method 1: Declare a binary target in cargo.toml
+### Method 1: Declare a binary target in cargo.toml
 - You'll then be able to run your example target via `$ cargo run --bin example`
 - Any number of binary targets can be declared in this way.
 - Add an entry to you cargo.toml that resembles the following:
@@ -96,12 +95,12 @@ There are two ways to create executable targets that don't have main.rs at their
 name = "example"
 path = "src/example.rs"
 ```
-#### Method 2: The bin directory
+### Method 2: The bin directory
 - All Rust files in the src/bin directory of your project act as binary targets.  No cargo.toml configuration required.
 - If you move src/example.rs to `src/bin/example.rs`, you'll be able to immediately run your example binary with `$ cargo run --bin example`
 - Do note that once you've declare more than one binary target, you will need to use the --bin flag whenever you invoke cargo run. For more information, see the Cargo Targets docs for binary targets.
 
-### lib.rs
+## lib.rs
 - is the crate's root module and serves as the public interface for the crate.
 - should contain the mod declarations for the crate's other modules, as well as any other code that needs to be visible to other crates. (`__init__.py`)
 - is optional. If your crate doesn't have any public APIs that need to be visible to other crates, you can omit the lib.rs file and put all of your crate's code in other files.
@@ -118,7 +117,7 @@ mod server {
 }
 // This crate has a top-level utils module and a server module, which has two submodules called router and handler.
 ```
-### Cargo.toml
+## Cargo.toml
 ```toml
 [package]
 name = "my-project"
@@ -158,8 +157,17 @@ all-features = true
 [badges]
 travis-ci = { repository = "your-username/my-project" }
 ```
+## Package Members
+- members will be included in the package when it is built using the cargo build command.
+- The format of the `[member]` section is a list of file or directory paths, each on a new line, that are relative to the package's root directory.
+- package members file can have separate main.rs files.
+- Each member can have its own src directory with a main.rs file that specifies the entry point for that member.
+- When building the package using cargo build, each member with a main.rs file will be built as a separate binary.
+- It's also possible to have a package with multiple binary members in which each of them can have its own main.rs and lib.rs if needed.
+- This can be useful for creating multiple command line utilities or applications within a single package.
 
-## Packages, Crates, Modularity
+
+# Packages, Crates, Modularity ....................................................................
 Rust code is organized on two levels:
 1. as a tree of inter-dependent modules inside a crate
 2. and as a directed acyclic graph of crates
@@ -176,13 +184,13 @@ Rust code is organized on two levels:
 - `pub mod xxx {}`, provides encapsulation
 - location: `/Users/Q187392/.asdf/installs/rust/1.66.0/registry/src/github.com-1ecc6299db9ec823`
 
-### imports
+## imports
 ```rust
 mod geo;
 use geo::calculations::distance as d
 ```
 
-### re-exports
+## re-exports
 - act of exposing the contents of another crate in the current crate's public interface.
 - allows users of the current crate to use the types, functions, and constants of the re-exported crate as if they were defined in the current crate.
 - re-export a commonly used crate to make it easier for users of your crate to access its functionality,
@@ -193,7 +201,7 @@ pub use collections::HashMap;  // would allow users of your crate to use the Has
 use your_crate::HashMap;
 ```
 
-### Tricks
+## Tricks
 - un-conditional sharing of code:
 ```rust
 // lib.rs:
