@@ -34,3 +34,31 @@
 - Upload a locally saved terminal session to asciinema.org:
 
 `asciinema upload {{path/to/file}}.cast`
+
+
+# Operations .......................................................................................
+[Sharing & embedding - asciinema](https://asciinema.org/docs/embedding)
+
+- to record tmux:
+- setup your tmux session (tmux new -s session-name, create windows, splits, start processes in them)
+- detach (prefix+d)
+- run asciinema rec -c "tmux attach -t session-name"
+- when you're finished, just detach the session again
+
+```bash
+# setup session
+# detach (prefix+d)
+asciinema rec -c "tmux attach"
+# detach (prefix+d)
+asciinema auth
+asciinema upload <file>
+
+# including in rst as link (Github) or embedded
+.. raw:: html
+
+   <a href="https://asciinema.org/a/278453?t=0.2" target="_blank"><img src="https://asciinema.org/a/278453.svg" /></a>
+
+.. raw:: html
+
+    <script id="asciicast-278453" src="https://asciinema.org/a/278453.js" async></script>
+```
