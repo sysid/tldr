@@ -48,6 +48,11 @@ brew bundle dump
 brew bundle cleanup --force
 ```
 
+## Brewfile
+[Usage — Homebrew-file 8.5.6 documentation](https://homebrew-file.readthedocs.io/en/latest/usage.html)
+[Manage all your installed software at one place with Homebrew Bundle](https://pumpingco.de/blog/brewfile/)
+
+
 ## Cask
 You can find custom commands for each application amongst available Casks, but generally, brew cask install just retrieves the configured version of the executable file and moves it to the specified application directory (~/Applications by default).
 $BREW_DIR/Caskroom contains the list of casks installed, and .metadata folder in each cask mentions the cask file used during installation.
