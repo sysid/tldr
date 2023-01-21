@@ -35,7 +35,7 @@ find . -name '.run' \
     -printf '%P\n' | gxargs --no-run-if-empty --verbose -n 1 -d $'\n'  -- $0 _cp_one "$BASEPATH"
 
 # Multiple Arguements
-echo argument1 argument2 argument3 | xargs -l bash -c 'echo this is first:$0 second:$1 third:$2'
+echo argument1 argument2 argument3 | xargs bash -c 'echo this is first:$0 second:$1 third:$2'
 find . -name '.envrc' -print0 | xargs -0 -I '{}' echo cp '{}' $HOME/dev/'{}'  # define args as {}
 
 gh pr list --repo sysid/vimania-uri --state open --json number | jq '.[].number' | xargs -n 1 -d $'\n' -- echo
