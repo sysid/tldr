@@ -43,6 +43,8 @@ https://learnk8s.io/blog/kubectl-productivity
 
 
 # Ops, Operations........................................................................................
+- version can be the same as or up to one minor version earlier or later than the Kubernetes version of your cluster
+
 [kubectl logs]($HOME/.cache/tldr/pages/common/kubectl-logs.md)
 [kubectl get]($HOME/.cache/tldr/pages/common/kubectl-get.md)
 [kubectl run]($HOME/.cache/tldr/pages/common/kubectl-run.md)

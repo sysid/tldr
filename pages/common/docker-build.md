@@ -39,6 +39,7 @@
 - cache busting: combine `RUN apt-get update with apt-get install` in the same `RUN` statement
 - use `gosu` to downgrade from `root`
 - separate layer is created any time files are added to the container image. This includes FROM, RUN, ADD, and COPY
+`--cache-from` is used to specify one or more images to use as a cache source to look for existing layers that can be reused, rather than recreating them
 ```bash
 docker build --no-cache --progress=plain --build-arg TWINE_USERNAME=qqe4m00 --build-arg TWINE_PASSWORD="$TWINE_PASSWORD"  --build-arg NO_PROXY='localhost,127.0.0.*,10.*,192.168.*,kubernetes.docker.internal,*.bmwgroup.net' -t poi .
 
@@ -52,6 +53,15 @@ finch build --build-arg TWINE_USERNAME=qqe4m00 --build-arg TWINE_PASSWORD="$TWIN
 --build-arg HTTP_PROXY=${SYSID_HOST} \
 --build-arg HTTPS_PROXY=${SYSID_HOST} \
 -t poi .
+
+# cache loading
+docker pull 621590899119.dkr.ecr.eu-central-1.amazonaws.com/e4m/gldpm/e4m:latest || true
+docker build \
+--cache-from 621590899119.dkr.ecr.eu-central-1.amazonaws.com/e4m/gldpm/e4m:latest \
+--build-arg COMMIT_SHA="${{ github.sha }}" \
+--build-arg TWINE_USERNAME="${{ secrets.TWINE_USERNAME }}" \
+--build-arg TWINE_PASSWORD="${{ secrets.TWINE_PASSWORD }}" \
+-t gldpm-backend .
 
 docker images  # list images
 docker rmi $(docker images -f dangling=true -q)  # dangling images
@@ -194,31 +204,33 @@ CMD ["--directory", "directory", "8000"]
 - Docker has a concept of caching, but the first line in the dockerfile that has a change, all lines after it will no longer be cached.
 - Don't use a wildcard with the COPY command. Docker will never cache that line. Be explicit!
 
-###  typical flow:
+
+##  typical flow:
 ```bash
-        FROM base-cotnainer
+FROM base-cotnainer
 
-        # Add all static environment variables, folders, users...
-        ENV IS_APPLICATION=1
-        RUN mkdir app
-        WORKDIR /app
-        RUN useradd -ms /bin/sh newuser
-        COMMAND ["python3", "main.py"]
+# Add all static environment variables, folders, users...
+ENV IS_APPLICATION=1
+RUN mkdir app
+WORKDIR /app
+RUN useradd -ms /bin/sh newuser
+COMMAND ["python3", "main.py"]
 
-        # Install all base image packages
-        RUN apt install ...
+# Install all base image packages
+RUN apt install ...
 
-        # Copy over your library depency files (Python example below)
-        COPY Pipfile /app/Pipfile
-        COPY Pipfile.lock /app/Pipfile.lock
+# Copy over your library depency files (Python example below)
+COPY Pipfile /app/Pipfile
+COPY Pipfile.lock /app/Pipfile.lock
 
-        # Install your libraries (Python example below)
-        RUN pipenv install --deploy
+# Install your libraries (Python example below)
+RUN pipenv install --deploy
 
-        # Lastly, copy the code over
-        COPY . /app/
+# Lastly, copy the code over
+COPY . /app/
 ```
-### Use Buildkit
+
+## Use Buildkit
 - Use docker's new library BUILDKIT and inline cache information into your builds. (This is a simple and big one)
   There are three things we need to set to get proper image caching in a pipeline:
   - Set the `DOCKER_BUILDKIT` environment variable to 1
