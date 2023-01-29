@@ -42,13 +42,27 @@ hugo server (-D)  # with drafts
 # You have a theme you added as a git submodule and you recently re-cloned your project. Guess what? Your submodule needs to be re-downloaded as well.
 git submodule init
 git submodule update
+
+# New Site based on Theme
+hugo new xxx
+cd xxx
+cd themes
+git clone https://github.com/tylerjlawson/port-hugo.git
+
+# fix submodule problem
+git submodule add -f https://github.com/tylerjlawson/port-hugo.git hugo/themes/port-hugo
+
+# copy content/resources from Example Site to assets/data
+~/dev/github/zusebi/site/hugo/themes/port-hugo/exampleSite
+
+# NPM install for js content and PostCSS
 ```
 
-## Concepts
+# Concepts .........................................................................................
 - [page bundles](https://gohugo.io/content-management/page-bundles/), those directories with index.md or `_index.md` files at their root.
 - Page resources are only available to the page with which they are bundled.
 
-### Themes and Layouts
+## Themes and Layouts
 - your layout files will override theme layouts with the same name and relative location.
 - [website/layouts at main · letsencrypt/website · GitHub](https://github.com/letsencrypt/website/tree/main/layouts): no thema
 
@@ -73,7 +87,6 @@ pandoc/reveal.js: https://discourse.gohugo.io/t/mathjax-newlines-in-hugo-pandoc/
 \\() instead of $..$
 line-break: \\\\ instead of \\
 ```
-
 
 ## Images
 Option 1.
@@ -151,6 +164,17 @@ To do this, you can add your CSS rules to the css/main.css file in your theme's 
 
 ## Google Analytics
 [Integrate Google Analytics with Hugo Theme](https://www.kiroule.com/article/integrate-google-analytics-with-hugo-theme/)
+
+
+## Security
+[Hugo's Security Model | Hugo](https://gohugo.io/about/security-model/#security-policy)
+```toml
+# npx problem fixed https://github.com/gohugoio/hugo/issues/9811#issuecomment-1105810857
+[security.exec]
+  osEnv = ['.*']  # wildcard test
+  #osEnv = ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$']  # default
+  #osEnv = ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$','(?i)^ASDF']
+```
 
 # Gotcha ...........................................................................................
 - baseURL must not have trailing slash
