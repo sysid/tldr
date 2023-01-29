@@ -171,6 +171,7 @@ To do this, you can add your CSS rules to the css/main.css file in your theme's 
 
 ## Security
 [Hugo's Security Model | Hugo](https://gohugo.io/about/security-model/#security-policy)
+[Configuring Security in Hugo (featuring settings needed to use Asciidoctor and Pandoc)](https://www.ii.com/hugo-security-config/)
 ```toml
 # npx problem fixed https://github.com/gohugoio/hugo/issues/9811#issuecomment-1105810857
 [security.exec]

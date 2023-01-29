@@ -56,7 +56,9 @@ cargo metadata --format-version 1 | jq -c '.packages[] | select(
 ```
 
 # Structure ........................................................................................
-[Package Layout - The Cargo Book](https://doc.rust-lang.org/cargo/guide/project-layout.html)
+- [Package Layout - The Cargo Book](https://doc.rust-lang.org/cargo/guide/project-layout.html)
+- projects can be composed of multiple files (which are modules), that can be nested within folders (which are also modules).
+- In order to access the root of that module tree, you can always use the crate:: prefix.
 
    project_name/
    ├── Cargo.toml
@@ -76,14 +78,33 @@ cargo metadata --format-version 1 | jq -c '.packages[] | select(
       ├── example2.rs
       └── ...
 
-The examples directory contains example code that demonstrates how to use the crate. Each example file is a Rust source file with a name that ends in `*.rs`.
+  project_name/
+      src/
+          main.rs
+          lib.rs
+          models/
+              mod.rs
+              user.rs
+              post.rs
+          util/
+              mod.rs
+              helper.rs
+          tests/
+              user_test.rs
+              post_test.rs
 
+- workspaces, containing packages, containing crates, containing multiple source files belonging to different modules.
+- Typically each codebase has only a single workspace, which for small projects often only contains a single package.
+- Each package has its own `Cargo.toml` file.
+- Each package may contain one or zero library crates and multiple binary test and benchmark crates.
+- Crates have a root module code file and code files included from this.
+- many people use the term "crate" when they actually mean packages. This is because each package contains only one library crate that is assoziated with the package.
 
 ## main.rs, Binaries
-[Cargo Targets - The Cargo Book](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#binaries)
-`main.rs` file is the entry point for an executable crate.
-If the crate has multiple executables, each executable will have its own `*.rs` file in the `src/bin` directory.
-Instead of src/main.rs you can have src/bin/tool1.rs and src/bin/tool2.rs etc. If you then have src/lib.rs then all those can access a single support crate for code
+- [Cargo Targets - The Cargo Book](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#binaries)
+- `main.rs`: entry point for an executable crate.
+- If the crate has multiple executables, each executable will have its own `*.rs` file in the `src/bin` directory.
+- to make a crate a lib you just rename the file main.rs to lib.rs, voil, now is a library
 
 There are two ways to create executable targets that don't have main.rs at their root.
 ### Method 1: Declare a binary target in cargo.toml
@@ -99,6 +120,7 @@ path = "src/example.rs"
 - All Rust files in the src/bin directory of your project act as binary targets.  No cargo.toml configuration required.
 - If you move src/example.rs to `src/bin/example.rs`, you'll be able to immediately run your example binary with `$ cargo run --bin example`
 - Do note that once you've declare more than one binary target, you will need to use the --bin flag whenever you invoke cargo run. For more information, see the Cargo Targets docs for binary targets.
+
 
 ## lib.rs
 - is the crate's root module and serves as the public interface for the crate.
@@ -117,6 +139,7 @@ mod server {
 }
 // This crate has a top-level utils module and a server module, which has two submodules called router and handler.
 ```
+
 ## Cargo.toml
 ```toml
 [package]
@@ -157,14 +180,28 @@ all-features = true
 [badges]
 travis-ci = { repository = "your-username/my-project" }
 ```
-## Package Members
+
+## Workspace, Package Members
 - members will be included in the package when it is built using the cargo build command.
 - The format of the `[member]` section is a list of file or directory paths, each on a new line, that are relative to the package's root directory.
-- package members file can have separate main.rs files.
-- Each member can have its own src directory with a main.rs file that specifies the entry point for that member.
-- When building the package using cargo build, each member with a main.rs file will be built as a separate binary.
-- It's also possible to have a package with multiple binary members in which each of them can have its own main.rs and lib.rs if needed.
+- package members file can have separate `main.rs` files.
+- When building the package using cargo build, each member with a `main.rs` file will be built as a separate binary.
+- It's also possible to have a package with multiple binary members in which each of them can have its own `main.rs` and `lib.rs` if needed.
 - This can be useful for creating multiple command line utilities or applications within a single package.
+```toml
+// master Cargo.toml as shell
+[workspace]
+members = ["db_stuff", "ftbmh"]
+
+// ftbmh/Cargo.tom
+[package]
+// your stuff
+
+[dependencies]
+// your dependencies
+db_stuff = { path = "../db_stuff" } // as you may know the `..`
+// in the path refers to the mother folder of the current one
+```
 
 
 # Packages, Crates, Modularity ....................................................................
@@ -173,18 +210,30 @@ Rust code is organized on two levels:
 2. and as a directed acyclic graph of crates
 
 - Cyclic dependencies are allowed between the modules, but not between the crates.
-- Crates are units of reuse and privacy: only crate's public API matters, and it is crystal clear what crate's public API is.
-- Moreover, crates are anonymous, so you don't get name conflicts and dependency hell when mixing several versions of the same crate in a single crate graph.
+- Crates are units of reuse and privacy: only crate's public API matters
+- crates are anonymous, so you don't get name conflicts and dependency hell when mixing several versions of the same crate in a single crate graph.
 - This makes it very easy to make two pieces of code not depend on each other (non-dependencies are the essence of modularity): just put them in separate crates.
-- During code review, only changes to Cargo.tomls need to be monitored carefully.
+- During code review, only changes to Cargo.toml need to be monitored carefully.
 
 - Most of the time when Rustaceans say "crate", they mean library crate, and they use "crate" interchangeably with the general programming concept of a "library"
 - A package can contain as many binary crates as you like, but at most only one library crate.
 - If a package contains `src/main.rs` and `src/lib.rs`, it has two crates: a binary and a library, both with the same name as the package.
-- `pub mod xxx {}`, provides encapsulation
-- location: `/Users/Q187392/.asdf/installs/rust/1.66.0/registry/src/github.com-1ecc6299db9ec823`
+
+## Modules
+- In Rust, all files and folders are modules
+- module: `pub mod xxx {}`, provides encapsulation
+- folders as modules: file named `mod.rs` must exist
+- think of the `mod.rs` file as defining the interface to your module
+
+## Visibility
+Everything inside a module (ie, a file or subfolder within the /src folder) can access anything else within that module.
+Everything outside a module can only access public members of that module.
 
 ## imports
+- When import with `mod`, Rust automatically creates a module namespace.
+- The module namespace is automatically taken from the file name
+- import all public names from a module with a wildcard `::*`
+- access the root of the module tree (ie, the main module in this case) using `crate::`
 ```rust
 mod geo;
 use geo::calculations::distance as d
@@ -200,6 +249,23 @@ pub use collections::HashMap;  // would allow users of your crate to use the Has
 
 use your_crate::HashMap;
 ```
+
+## prelude
+pattern for making available all types you want to be public
+```
+mod foo;
+mod prelude {                             <-- Create module inline
+  pub use crate::foo::{MyStruct,Another}; <-- Note the 'pub' here!
+}
+use crate::prelude::*;                    <-- Make the types exposed
+                                              in the prelude
+                                              available
+fn main() {
+  let _ms = MyStruct {};
+  let _a = Another {};
+}
+```
+
 
 ## Tricks
 - un-conditional sharing of code:
