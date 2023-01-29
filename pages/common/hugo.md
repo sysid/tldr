@@ -57,14 +57,17 @@ git submodule add -f https://github.com/tylerjlawson/port-hugo.git hugo/themes/p
 
 # NPM install for js content and PostCSS
 ```
+## Gotcha
+- theme needs to be clone seperately, does not come with website
+
 
 # Concepts .........................................................................................
-- [page bundles](https://gohugo.io/content-management/page-bundles/), those directories with index.md or `_index.md` files at their root.
+- [page bundles](https://gohugo.io/content-management/page-bundles/), directories with `index.md` or `_index.md` files at their root.
 - Page resources are only available to the page with which they are bundled.
 
 ## Themes and Layouts
 - your layout files will override theme layouts with the same name and relative location.
-- [website/layouts at main · letsencrypt/website · GitHub](https://github.com/letsencrypt/website/tree/main/layouts): no thema
+- Exampe for no theme at all: [website/layouts at main · letsencrypt/website · GitHub](https://github.com/letsencrypt/website/tree/main/layouts)
 
 ## MathJax
 - wait for 4 for linebreaks
