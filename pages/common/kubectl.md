@@ -78,6 +78,12 @@ k delete -f https://k8s.io/examples/application/nginx-app.yaml
 k replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
 ```
 
+# Certifcates, Ingress ............................................................................
+## Certs
+```bash
+k get certificate -o wide  # show issuer and status
+```
+
 # Installation/Configuration ......................................................................
 - Gotcha: manage `kubeclt` with asdf: manage version skew (client/server)
 - Configuration Location: `~/.kube/config`
