@@ -44,6 +44,7 @@ https://learnk8s.io/blog/kubectl-productivity
 
 # Ops, Operations........................................................................................
 - version can be the same as or up to one minor version earlier or later than the Kubernetes version of your cluster
+- extend with plugins: `kubect-<name>`
 
 [kubectl logs]($HOME/.cache/tldr/pages/common/kubectl-logs.md)
 [kubectl get]($HOME/.cache/tldr/pages/common/kubectl-get.md)
