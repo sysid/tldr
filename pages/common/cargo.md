@@ -39,7 +39,8 @@
 
 
 # Oprations ............................................................................................
-- dev-dependencies documentation cannot be generated
+- dev-dependencies documentation cannot be generated. Workaround: add it as regular dependency
+- examples of deps can be run directly, crates seem to be self sufficient
 
 ```bash
 cargo tree
@@ -53,6 +54,14 @@ cargo metadata --format-version 1 | jq -c '.packages[] | select(
         (.optional == true)
     )
 ) | .name'
+
+# find lib targets
+cargo metadata --format-version 1 | jq '.packages[].targets[] | select(.kind[] == "lib") | .name'
+# find example targets
+cargo metadata --format-version 1 | jq '.packages[].targets[] | select(.kind[] == "example") | .name'
+
+# list example targets
+cargo run --example
 ```
 
 # Structure ........................................................................................
@@ -94,11 +103,11 @@ cargo metadata --format-version 1 | jq -c '.packages[] | select(
               post_test.rs
 
 - workspaces, containing packages, containing crates, containing multiple source files belonging to different modules.
+- many people use the term "crate" when they actually mean packages. This is because each package contains only one library crate that is assoziated with the package.
 - Typically each codebase has only a single workspace, which for small projects often only contains a single package.
 - Each package has its own `Cargo.toml` file.
-- Each package may contain one or zero library crates and multiple binary test and benchmark crates.
+- Each package may contain max ONE library crates and multiple binary test and benchmark crates.
 - Crates have a root module code file and code files included from this.
-- many people use the term "crate" when they actually mean packages. This is because each package contains only one library crate that is assoziated with the package.
 
 ## main.rs, Binaries
 - [Cargo Targets - The Cargo Book](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#binaries)
@@ -111,7 +120,7 @@ There are two ways to create executable targets that don't have main.rs at their
 - You'll then be able to run your example target via `$ cargo run --bin example`
 - Any number of binary targets can be declared in this way.
 - Add an entry to you cargo.toml that resembles the following:
-```toml
+```
 [[bin]]
 name = "example"
 path = "src/example.rs"
