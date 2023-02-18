@@ -62,6 +62,9 @@ cargo metadata --format-version 1 | jq '.packages[].targets[] | select(.kind[] =
 
 # list example targets
 cargo run --example
+
+# outdated, upgrade dependencies [kbknapp/cargo-outdated](https://github.com/kbknapp/cargo-outdated/tree/6007f069790a150eff585ee33eafd8c390779bcb/)
+cargo outdated
 ```
 
 # Structure ........................................................................................
