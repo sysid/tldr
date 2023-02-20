@@ -295,3 +295,6 @@ mod tests {
 // us in integration tests
 #[path = "../../src/test_commons.rs"] mod test_commons;
 ```
+
+## Features
+- to find out the available features: read Cargo.toml on Github
