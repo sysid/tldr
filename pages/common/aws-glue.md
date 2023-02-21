@@ -27,3 +27,7 @@
 - Create a dev endpoint:
 
 `aws glue create-dev-endpoint --endpoint-name {{name}} --role-arn {{role_arn_used_by_endpoint}}`
+
+
+# Custom ...........................................................................................
+https://us-east-1.console.aws.amazon.com/console/home?region=us-east-1#
