@@ -25,14 +25,15 @@
 
 - Convert AVI video to MP4. AAC Audio @ 128kbit, h264 Video @ CRF 23:
 
-`ffmpeg -i {{input_video}}.avi -codec:audio aac -b:audio 128k -codec:video libx264 -crf 23 {{output_video}}.mp4`
+`ffmpeg -i {{input_video}}.avi -codec:a aac -b:a 128k -codec:v libx264 -crf 23 {{output_video}}.mp4`
 
 - Remux MKV video to MP4 without re-encoding audio or video streams:
 
 `ffmpeg -i {{input_video}}.mkv -codec copy {{output_video}}.mp4`
 
-- Convert MP4 video to VP9 codec. For the best quality, use a CRF value (recommended range 15-35) and -b:video MUST be 0:
+- Convert MP4 video to VP9 codec. For the best quality, use a CRF value (recommended range 15-35) and -b:v MUST be 0:
 
+<<<<<<< HEAD
 `ffmpeg -i {{input_video}}.mp4 -codec:video libvpx-vp9 -crf {{30}} -b:video 0 -codec:audio libopus -vbr on -threads {{number_of_threads}} {{output_video}}.webm`
 
 
@@ -86,3 +87,6 @@ ffplay -i tcp://local_host_or_IP_addr:port?listen -hide_banner
 
 ## Resources
 [FFmpeg - Ultimate Guide | IMG.LY Blog](https://img.ly/blog/ultimate-guide-to-ffmpeg/)
+=======
+`ffmpeg -i {{input_video}}.mp4 -codec:v libvpx-vp9 -crf {{30}} -b:v 0 -codec:a libopus -vbr on -threads {{number_of_threads}} {{output_video}}.webm`
+>>>>>>> 9a001126ea73ce25630d04e310fa7d19c26bf4cf
