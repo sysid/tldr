@@ -34,3 +34,14 @@
 - Get offset for a topic/partition for a specific point in time:
 
 `kcat -Q -t {{topic}}:{{partition}}:{{unix_timestamp}} -b {{brokers}}`
+
+
+# Custom ..........................................................................................
+```bash
+# Producer
+kcat -P -b localhost -t xxx  # read line from stdin, send record after CTRL-D
+
+# Consumer
+kcat -b localhost -t xxx -J  # JSON envelope
+kcat -b localhost -t xxx -J -o 8 -e  # auto-exict, offset 8 (beginning, end, stored, +-x
+```
