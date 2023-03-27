@@ -26,3 +26,32 @@
 - Run on multiple machines via SSH:
 
 `parallel -S {{machine1}},{{machine2}} {{command}} ::: {{arg1}} {{arg2}}`
+
+
+# Custom ...........................................................................................
+achieves parallel execution by dividing the input data into smaller chunks and then executing the specified command with each chunk in a separate process or on a separate machine.
+This approach enables the concurrent processing of data and can lead to substantial time savings compared to executing the commands sequentially.
+
+Here's an overview of how GNU Parallel achieves parallel execution:
+
+1. Input splitting:
+GNU Parallel splits the input data into smaller chunks, typically based on lines or records.
+You can control the number of lines or records in each chunk, or let GNU Parallel decide the optimal size based on the number of available CPU cores.
+
+2. Process management:
+starts multiple processes to execute the specified command concurrently.
+manages the number of running processes based on the available CPU cores and user-defined limits.
+ensures that the system doesn't get overloaded by controlling the number of simultaneous processes.
+
+3. Load balancing:
+GNU Parallel balances the load among the available cores or machines to optimize resource usage.
+It can even distribute jobs to remote machines over SSH if provided with a list of hosts.
+
+4. Job execution:
+Each chunk of input data is passed to a separate process running the specified command.
+GNU Parallel takes care of starting the processes, passing the input data, and capturing the output.
+
+5. Output collection: GNU Parallel collects the output from each process and combines it into a single output stream.
+You can control the order in which the output is combined, either preserving the original input order or allowing outputs to be combined as they become available.
+
+GNU Parallel achieves parallel execution by utilizing multiple cores or machines, splitting the input into manageable chunks, and efficiently managing the execution of jobs. This allows for a significant speedup in many situations where tasks can be processed independently and in parallel.
