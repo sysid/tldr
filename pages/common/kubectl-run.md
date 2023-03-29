@@ -43,12 +43,29 @@ k delete pods <pod> --grace-period=0 --force  # hanging in terminating
 
 # gracefully evict pods, but keep kube-proxy running
 k drain <node> --ignore-daemonsets
+
+# Manifest with service-account
+apiVersion: v1
+kind: Pod
+metadata:
+  name: twdbg
+spec:
+  serviceAccountName: sqs-access-service-account
+  containers:
+  - name: my-container
+    image: 621590899119.dkr.ecr.eu-central-1.amazonaws.com/e4m/kubernetes-debugger:latest
+    imagePullPolicy: Always
+    command: ["/bin/bash"]
+    stdin: true
+    tty: true
+  restartPolicy: Never
+
 ```
 # Exec into pod ....................................................................................
 ```bash
 k exec -it example-job-tslcn -c server -- sh  # exec into container 'server'
 
-# Run As Root
+# Run As Root (not working!)
 kubectl krew install exec-as  # Plugin Installation
 kubectl exec-as -u <username>
 kubectl exec-as -u <username> <podname> -- /bin/bash
