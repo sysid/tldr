@@ -174,6 +174,16 @@ class TestClass:
         result = mock_database.query("SELECT * FROM table")
         assert result == expected_result
 ```
+## Mock config object
+```python
+    mock_sqs_client = mocker.patch("poi_fb_backend.service_layer.use_cases.config.sqs")
+
+    assert mock_sqs_client.send_message.call_count == 1
+    assert mock_sqs_client.send_message.ssert_called_once_with(
+        QueueUrl=config.sqs_queue_url,
+        MessageGroupId=config.sqs_message_group_id,
+    )
+```
 
 ## Gotcha
 - location/target is a STRING
