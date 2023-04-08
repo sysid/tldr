@@ -34,3 +34,11 @@
 - Set Firefox as the default browser:
 
 `firefox --setDefaultBrowser`
+
+
+# Custom ...........................................................................................
+- Installation: Brew
+
+## Container
+- install: open [Firefox Multi-Account Containers – Get this Extension for 🦊 Firefox (en-GB)](https://addons.mozilla.org/en-GB/firefox/addon/multi-account-containers/) in Firefox
+- login within container
