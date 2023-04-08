@@ -66,3 +66,4 @@ age has a smaller codebase compared to PGP, which makes it easier to audit and m
 
 ## Resources
 [GitHub - mozilla/sops: Simple and flexible tool for managing secrets](https://github.com/mozilla/sops)
+https://frederic-hemberger.de/notes/kubernetes/manage-secrets-with-sops/
