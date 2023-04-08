@@ -29,7 +29,7 @@
 `diff <(sops -d {{path/to/secret1.enc.yaml}}) <(sops -d {{path/to/secret2.enc.yaml}})`
 
 
-# Custom ...............
+# Custom  ..........................................................................................
 - use several keys simultanously for high avail: pgp + kms
 - .env, yaml, json
 ```bash
@@ -62,3 +62,7 @@ age is generally faster than PGP due to its streamlined design and the use of ef
 
 Codebase size:
 age has a smaller codebase compared to PGP, which makes it easier to audit and maintain.
+
+
+## Resources
+[GitHub - mozilla/sops: Simple and flexible tool for managing secrets](https://github.com/mozilla/sops)
