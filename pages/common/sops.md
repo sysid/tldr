@@ -36,6 +36,7 @@
 gpg --fingerprint sysid@gmx.de
 echo 7F3F C64B 410A 7E43 D3EB  52E0 FBAF 64AE 3738 9C69 | tr -d ' '
 sops -pgp 7F3FC64B410A7E43D3EB52E0FBAF64AE37389C69 pgpfile.yaml
+sops --input-type dotenv --output-type dotenv --pgp 7F3FC64B410A7E43D3EB52E0FBAF64AE37389C69 xxx
 ```
 ## config
 [Use yaml config for multiple keys](https://github.com/mozilla/sops#using-sops-yaml-conf-to-select-kms-pgp-for-new-files)
