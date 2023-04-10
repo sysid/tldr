@@ -79,6 +79,10 @@ cargo install cargo-release
 cargo install --locked cargo-outdated
 cargo install cargo-edit
 ```
+## cargo login, Authentication for Crates.io
+- PAT generated via Github OAuth
+
+
 
 # Dependency management ...........................................................................
 - version differences between Cargo.toml and Cargo.lock arise from the flexibility allowed by version constraints in Cargo.toml.
