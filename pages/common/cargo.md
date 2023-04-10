@@ -41,6 +41,11 @@
 # Oprations ............................................................................................
 - dev-dependencies documentation cannot be generated. Workaround: add it as regular dependency
 - examples of deps can be run directly, crates seem to be self sufficient
+- binary files for the cargo-edit commands (such as cargo-add, cargo-rm, and cargo-upgrade) are installed in the bin directory under the default Cargo home directory.
+
+The default Cargo home directory depends on your operating system:
+- On Linux and macOS: $HOME/.cargo
+- On Windows: %USERPROFILE%\.cargo
 
 ```bash
 cargo tree
@@ -63,8 +68,33 @@ cargo metadata --format-version 1 | jq '.packages[].targets[] | select(.kind[] =
 # list example targets
 cargo run --example
 
-# outdated, upgrade dependencies [kbknapp/cargo-outdated](https://github.com/kbknapp/cargo-outdated/tree/6007f069790a150eff585ee33eafd8c390779bcb/)
+# Release
+$ cargo install cargo-release
+```
+
+## Installation/Upgrade
+- Gotcha: after asdf upgrade:
+```bash
+cargo install cargo-release
+cargo install --locked cargo-outdated
+cargo install cargo-edit
+```
+
+# Dependency management ...........................................................................
+- version differences between Cargo.toml and Cargo.lock arise from the flexibility allowed by version constraints in Cargo.toml.
+- Cargo will choose the latest compatible version for your dependencies according to the constraints, and then record the exact version in Cargo.lock.
+- This allows Cargo to automatically pick up non-breaking updates for your dependencies while maintaining reproducible builds.
+```bash
+# show  dependencies [kbknapp/cargo-outdated](https://github.com/kbknapp/cargo-outdated/tree/6007f069790a150eff585ee33eafd8c390779bcb/)
+cargo install --locked cargo-outdated
 cargo outdated
+
+# upgrade Cargo.toml
+cargo install cargo-edit
+cargo upgrade  # update Cargo.toml
+
+# upgrade Cargo.lock
+cargo update
 ```
 
 # Structure ........................................................................................
