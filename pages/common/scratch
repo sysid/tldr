@@ -1,0 +1,1 @@
+sops -e http-client.private.env.json > http-client.private.env.enc.json; git add http-client.private.env.enc.json
