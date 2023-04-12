@@ -34,16 +34,6 @@ pre-commit install
 ```
 
 
-## Development/Testing
-```bash
-# To test your hooks on specific files or all files in your repository, you can use one of the following commands:
-# To run the hooks on a specific file or files:
-pre-commit run --files path/to/file1.py path/to/file2.py
-# To run the hooks on all files in the repository:
-pre-commit run --all-files
-```
-
-
 ## post-commit
 pre-commit framework does not automatically run hooks in the post-checkout stage when switching branches.
 The pre-commit command is primarily used to run hooks in the pre-commit stage.
@@ -89,6 +79,17 @@ Now, when you switch branches, the post-checkout Git hook will run, and it will 
 ```bash
 pre-commit run decrypt-env-file --verbose --hook-stage post-checkout
 ```
+
+
+## Development/Testing
+```bash
+# To test your hooks on specific files or all files in your repository, you can use one of the following commands:
+# To run the hooks on a specific file or files:
+pre-commit run --files path/to/file1.py path/to/file2.py
+# To run the hooks on all files in the repository:
+pre-commit run --all-files
+```
+
 
 ## Example
 ```yaml

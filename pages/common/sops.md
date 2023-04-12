@@ -30,6 +30,7 @@
 
 
 # Custom  ..........................................................................................
+[showwing diffs in cleartext](https://github.com/mozilla/sops#47showing-diffs-in-cleartext-in-git)
 - use several keys simultanously for high avail: pgp + kms
 - .env, yaml, json
 ```bash
@@ -51,6 +52,8 @@ sops -d --input-type dotenv --output-type dotenv yyy  # file-type required
 
 ## config
 [Use yaml config for multiple keys](https://github.com/mozilla/sops#using-sops-yaml-conf-to-select-kms-pgp-for-new-files)
+
+
 
 ## age vs PGP:
 
