@@ -93,6 +93,7 @@ pre-commit run --all-files
 
 ## Example
 ```yaml
+# .pre-commit-config.yaml
 fail_fast: true
 repos:
 - repo: local
@@ -126,21 +127,6 @@ repos:
     language: system
     entry: pipenv run isort
     types: [python]
-
-  - id: black
-    name: black
-    stages: [commit]
-    language: system
-    entry: pipenv run black
-    types: [python]
-
-  - id: flake8
-    name: flake8
-    stages: [commit]
-    language: system
-    entry: pipenv run flake8
-    types: [python]
-    exclude: setup.py
 
   - id: mypy
     name: mypy

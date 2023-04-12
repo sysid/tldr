@@ -61,4 +61,7 @@ find /target/dir -type l ! -exec test -e {} \; -exec rm {} \;
 
 # reverse find links associated with file (inode)
 find -L /Users/q187392/dev/s/public/ -samefile ref-file
+
+# delete line recursively: sed edit direct without backup
+find . -type f -name ".envrc" -exec sed -i '/source ~\/dev\/crypt\/dot_direnv_creds/d' {} \;
 ```
