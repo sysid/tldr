@@ -22,6 +22,8 @@
 
 # Custom ...........................................................................................
 [pre-commit](https://pre-commit.com/#creating-new-hooks)
+- message "(no files to check)" for a specific hook, it means that the hook has been executed, but no files matched the criteria defined for that hook
+- hook only runs on files that have been staged for a commit (default)
 ```bash
 # dry-run a hook
 pre-commit
@@ -30,6 +32,17 @@ pre-commit run decrypt-env-file --verbose --hook-stage post-checkout
 # install AND upgrade python version
 pre-commit install
 ```
+
+
+## Development/Testing
+```bash
+# To test your hooks on specific files or all files in your repository, you can use one of the following commands:
+# To run the hooks on a specific file or files:
+pre-commit run --files path/to/file1.py path/to/file2.py
+# To run the hooks on all files in the repository:
+pre-commit run --all-files
+```
+
 
 ## post-commit
 pre-commit framework does not automatically run hooks in the post-checkout stage when switching branches.
