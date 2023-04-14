@@ -104,6 +104,7 @@ repos:
     language: script
     files: \.py$
     verbose: true  # prevents output from being swallowed
+    require_serial: true  # !!!!
 
   - id: black
     name: black
