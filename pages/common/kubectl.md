@@ -77,6 +77,9 @@ k delete -f https://k8s.io/examples/application/nginx-app.yaml
 
 # delete and recreate
 k replace -f https://k8s.io/examples/application/nginx/nginx-deployment.yaml --force
+
+# force redeployment without changes
+kubectl patch deployment <your-deployment-name> -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"$(date +'%s')\"}}}}}"
 ```
 
 # Certifcates, Ingress ............................................................................

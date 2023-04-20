@@ -34,3 +34,9 @@
 - Enable a specific AWS account to send messages to queue:
 
 `aws sqs add-permission --queue-url https://sqs.{{region}}.amazonaws.com/{{queue_name}} --label {{permission_name}} --aws-account-ids {{account_id}} --actions SendMessage`
+
+
+# Custom ...........................................................................................
+```bash
+aws sqs send-message --queue-url https://sqs.eu-central-1.amazonaws.com/621590899119/test-poi-fb-sqs.fifo --message-body "test" --message-group-id 1 --message-deduplication-id 1
+```
