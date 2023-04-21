@@ -40,6 +40,9 @@
 
 # Custom ...........................................................................................
 ```bash
+# run individual test
+mvn test -Dtest=MyTestClass#myTestMethod
+
 # clean/build: When phase given, every phase in the sequence up to one is processed
 mvn -Pbmw clean package  # Connected Drive: BMW profile
 mvn package -Dclassifier=aws
