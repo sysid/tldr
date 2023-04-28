@@ -52,3 +52,7 @@ export AWS_SESSION_TOKEN=IQoJb3JpZ2luX2VjECYaCXVzLWVhc3QtMSJHMEUCID743pVInfVdufo
 
 Action couples visuals
 Filter filters one/many/all, can cascade
+
+## networking
+[Connecting to a VPC with Amazon QuickSight - Amazon QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/working-with-aws-vpc.html)
+By creating a VPC connection in QuickSight, you're adding an elastic network interface in your VPC. This network interface allows QuickSight to exchange network traffic with a network instance within your VPC
