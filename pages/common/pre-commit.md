@@ -31,6 +31,10 @@ pre-commit run decrypt-env-file --verbose --hook-stage post-checkout
 
 # install AND upgrade python version
 pre-commit install
+
+# test it
+pre-commit run --all-files
+pre-commit run --files YOUR_FILENAME
 ```
 
 
