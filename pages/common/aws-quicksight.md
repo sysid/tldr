@@ -56,3 +56,5 @@ Filter filters one/many/all, can cascade
 ## networking
 [Connecting to a VPC with Amazon QuickSight - Amazon QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/working-with-aws-vpc.html)
 By creating a VPC connection in QuickSight, you're adding an elastic network interface in your VPC. This network interface allows QuickSight to exchange network traffic with a network instance within your VPC
+The QuickSight network interface alone doesn't give QuickSight direct access to your databases. The VPC connection works only for the QuickSight data sources that are configured to use it.
+There is only one QuickSight network interface for each VPC. It is created on the subnet that you set up in the QuickSight VPC connection.

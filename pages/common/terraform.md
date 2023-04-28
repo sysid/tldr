@@ -28,8 +28,9 @@
 `terraform destroy`
 
 
-[terraform.pptx]($HOME/dev/s/private/vimwiki/help/terraform.pptx)
 # Operations .......................................................................................
+[terraform.pptx]($HOME/dev/s/private/vimwiki/help/terraform.pptx)
+
 - environment variables `TF_VAR_xxx`, hardcode in `*.tf` (i.e. `TF_VAR_ENVIRONMNET_PREFIX`)
 ```bash
 tf init  # initializes .terraform and loads providers, modules and installs backend
