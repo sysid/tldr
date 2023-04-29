@@ -58,3 +58,7 @@ alias greet="echo hello"
 
 # with direnv
 export_alias greet 'echo hello $@'
+
+
+## Gotcha
+- use `dotenv` instead of `source` for proper unloading, but source seems to work ?!?
