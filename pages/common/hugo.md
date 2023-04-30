@@ -81,6 +81,8 @@ pandoc/reveal.js: https://discourse.gohugo.io/t/mathjax-newlines-in-hugo-pandoc/
 [Hugo Bear Blog |Hugo Themes](https://themes.gohugo.io/themes/hugo-bearblog/)
 
 ### Gotcha
+- align works with `&` only when using `\begin{aling}`
+- remove all `\mathit, \color`, color is working, but can confuse renderer
 ```latex
 - boldsymbol instead of bold
 
@@ -89,6 +91,18 @@ pandoc/reveal.js: https://discourse.gohugo.io/t/mathjax-newlines-in-hugo-pandoc/
 
 \\() instead of $..$
 line-break: \\\\ instead of \\
+
+- delete mathit{}
+
+\begin{align}
+\min&\sum_{i,j|\color{darkblue}{ok}{i,j}} \color{darkblue}{dist}{i,j}\cdot z_{i,j} \\\\
+& \sum_{i|\color{darkblue}{group}{i,g}} \color{darkred}x_i = 1 && \forall g\\\\
+& \color{darkred}x_i \in {0,1} \\\\
+& z{i,j} \leq \color{darkred}x_i && \forall i,j|\color{darkblue}{ok}{i,j} \\\\
+& z{i,j} \leq \color{darkred}x_j && \forall i,j|\color{darkblue}{ok}{i,j} \\\\
+& z{i,j} \geq \color{darkred}x_i + \color{darkred}x_j - 1 && \forall i,j|\color{darkblue}{ok}{i,j} \\\\
+& z{i,j} \in {0,1} && \forall i,j|\color{darkblue}{ok}_{i,j}
+\end{align}
 ```
 
 ## Images
