@@ -186,6 +186,40 @@ mod server {
 // This crate has a top-level utils module and a server module, which has two submodules called router and handler.
 ```
 
+## build.rs, Build Script
+standalone Rust file that is executed by Cargo, Rust's package manager, before building the main project.
+When Cargo detects a build.rs file in the root of a package, it treats it as a build script and executes it before building the main package.
+Build scripts are used to perform various tasks during the build process, such as code generation, configuration, compilation of C/C++ code, linking to system libraries, and more.
+
+modifies the build process by emitting special instructions to the console.
+instructions start with the `cargo:` prefix and have a predefined format.
+
+Here are some common use cases for a build.rs file:
+
+### Linking to C/C++ libraries:
+If your Rust project depends on C/C++ libraries, you can use a build script to specify the search paths and link the libraries. For example:
+```rust
+fn main() {
+    println!("cargo:rustc-link-search=native=/path/to/libs");
+    println!("cargo:rustc-link-lib=static=my_library");
+}
+// CBC config
+fn main() {
+    println!("cargo:rustc-link-search=/Users/Q187392/dev/bin/coinbrew/dist/lib");
+}
+```
+### Compiling C/C++ code:
+You can use a build script to compile C/C++ code and link it to your Rust project. This can be done using the cc crate, which provides a convenient API for compiling C/C++ code. For example:
+```rust
+use cc::Build;
+
+fn main() {
+    Build::new()
+        .file("src/my_library.c")
+        .compile("my_library");
+}
+```
+
 ## Cargo.toml
 ```toml
 [package]
