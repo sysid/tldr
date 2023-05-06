@@ -26,3 +26,34 @@
 - Dump only schema (data definitions) into an SQL-script file:
 
 `pg_dump -s {{db_name}} > {{path/to/output_file.sql}}`
+
+
+# Custom ....................................................................................................
+- can back up a running, active database
+- caveat: does not dump roles or other database objects including tablespaces, only a single database
+- To include the necessary DDL CREATE DATABASE command and a connection in the backup file, include the -C option
+```bash
+createdb -O postgres psycopgtest  # specify DB owner
+
+# Backup/Restore plain text format (-Fp)
+pg_dump dbname > dump.sql
+psql dbname < dump.sql
+
+# custom format: Fc compresses ala zip
+pg_dump -Fc mydb > db.dump
+pg_dump -Fc -f db.dump URL
+
+# restore into mydb (-d postgres needed to issue create database command)
+pg_restore  -C -d postgres db.dump  # required for non-plaint text archives
+pg_restore --clean -d 'postgresql://USER:qfdvr2ata7opidy4@HOST:PORT/DATABASE?sslmode=require' --jobs 2 database.dump
+
+# VACUUM ANALYZE all databases;
+vacuumdb -a -z
+
+# backup/restore entire cluster
+pg_dumpall > cluster.dump
+psql -f cluster.dump postgres  # default db to kickstart commands
+
+pg_stat_activity
+pg_stat_database connections
+```

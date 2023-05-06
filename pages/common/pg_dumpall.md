@@ -26,3 +26,12 @@
 - Dump only schema (data definitions) into an SQL-script file:
 
 `pg_dumpall -s > {{output_file.sql}}`
+
+
+# Custom ...........................................................................................
+https://www.postgresql.org/docs/current/app-pg-dumpall.html
+- connect as a database superuser in order to produce a complete dump.
+- Also, you will need superuser privileges to execute the saved script in order to be allowed to add users and groups and to create databases
+- “pg_dumpall needs to connect several times to the PostgreSQL server (once per database). If you use password authentication it will ask for a password each time.”
+- It is not important to which database you connect here since the script file created by pg_dumpall will contain the appropriate commands to create and connect to the saved databases.
+- handle the entire cluster, backing up information on roles, tablespaces, users, permissions, etc...

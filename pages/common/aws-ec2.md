@@ -35,3 +35,16 @@
 - Show help for specific EC2 subcommand:
 
 `aws ec2 {{subcommand}} help`
+
+
+# Custom ...........................................................................................
+## Amazon Linux 2, RedHat
+- switch to bash for autocomplete
+```bash
+# Update the package repository and install the EPEL (Extra Packages for Enterprise Linux) repository, if not already installed:
+sudo yum update -y
+sudo amazon-linux-extras install -y postgresql14
+
+psql --version
+pg_dump --version
+```
