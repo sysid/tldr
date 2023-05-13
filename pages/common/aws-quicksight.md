@@ -37,3 +37,13 @@
 By creating a VPC connection in QuickSight, you're adding an elastic network interface in your VPC. This network interface allows QuickSight to exchange network traffic with a network instance within your VPC
 The QuickSight network interface alone doesn't give QuickSight direct access to your databases. The VPC connection works only for the QuickSight data sources that are configured to use it.
 There is only one QuickSight network interface for each VPC. It is created on the subnet that you set up in the QuickSight VPC connection.
+
+
+ii. Set the session variable of the parameter to 'md5:
+
+   set password_encryption = 'md5';
+
+iii. Create a user and assign it the necessary credentials
+
+   create user (username) with password '(password)';
+   grant connect on database (database) to (username);
