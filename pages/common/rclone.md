@@ -34,3 +34,25 @@
 - Unmount rclone remote if CTRL-C fails (experimental):
 
 `fusermount -u {{path/to/mount_point}}`
+
+
+# Custom ...........................................................................................
+```bash
+rclone sync . tw-prod-bkp:/tw-prod-bkp/mac/data --progress
+```
+
+## Config
+```bash
+○ → more /Users/Q187392/.config/rclone/rclone.conf
+───────┬───────────────────────────────────────────────────────────────────────────────────────────
+       │ File: /Users/Q187392/.config/rclone/rclone.conf
+───────┼───────────────────────────────────────────────────────────────────────────────────────────
+   1   │ [tw-prod-bkp]
+   2   │ type = s3
+   3   │ provider = AWS
+   4   │ env_auth = true
+   5   │ region = eu-central-1
+   6   │ server_side_encryption = AES256
+───────┴───────────────────────────────────────────────────────────────────────────────────────────
+
+```
