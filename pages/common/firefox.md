@@ -42,3 +42,5 @@
 ## Container
 - install: open [Firefox Multi-Account Containers – Get this Extension for 🦊 Firefox (en-GB)](https://addons.mozilla.org/en-GB/firefox/addon/multi-account-containers/) in Firefox
 - login within container
+
+[GitHub - honsiorovskyi/open-url-in-container: Firefox extension to open external links in a specific container](https://github.com/honsiorovskyi/open-url-in-container)
