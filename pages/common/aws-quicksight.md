@@ -47,3 +47,29 @@ iii. Create a user and assign it the necessary credentials
 
    create user (username) with password '(password)';
    grant connect on database (database) to (username);
+
+
+### Create a QuickSight database user with the 'md5' password encryption at session level
+In order to quickly allow QuickSight to connect to the RDS PostgreSQL instance, you may consider creating a dedicated QuickSight user with the compatible password encryption. To do so, connect to the RDS PostgreSQL instance using a master user or user who can create additional users and perform the following:
+
+   i. Verify current password_encryption value:
+
+   show password_encryption;
+
+   ii. Set the session variable of the parameter to 'md5:
+
+   set password_encryption = 'md5';
+
+   iii. Create a user and assign it the necessary credentials
+
+   create user (username) with password '(password)';
+   grant connect on database (database) to (username);
+
+ Note: add any additional permissions as required.
+
+   iv. Use the user to connect from QuickSight and it should be able to connect successfully using the "md5" encryption and not "scram-sha-256".
+
+
+# Resources
+[How to create a data source using Terraform - #3 by larry - Question & Answer - Amazon QuickSight Community](https://community.amazonquicksight.com/t/how-to-create-a-data-source-using-terraform/11007/3)
+[Terraform Registry](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_vpc_connection)
