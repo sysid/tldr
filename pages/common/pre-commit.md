@@ -25,6 +25,15 @@
 - message "(no files to check)" for a specific hook, it means that the hook has been executed, but no files matched the criteria defined for that hook
 - hook only runs on files that have been staged for a commit (default)
 ```bash
+# Run a specific hook on all files:
+pre-commit run hook-id --all-files
+
+# Run all hooks on a specific file:
+pre-commit run --files path/to/your/file
+
+# Run a specific hook on a specific file:
+pre-commit run hook-id --files path/to/your/file
+
 # dry-run a hook
 pre-commit
 pre-commit run decrypt-env-file --verbose --hook-stage post-checkout
