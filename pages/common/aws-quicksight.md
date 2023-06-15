@@ -31,6 +31,7 @@
 
 # Custom ...........................................................................................
 [Workshop Studio](https://catalog.workshops.aws/quicksight/en-US/anonymous-embedding/2-embedding-workflow)
+[quicksight.pptx]($HOME/vimwiki/help/aws/quicksight.pptx)
 
 ## networking
 [Connecting to a VPC with Amazon QuickSight - Amazon QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/working-with-aws-vpc.html)
@@ -70,6 +71,13 @@ In order to quickly allow QuickSight to connect to the RDS PostgreSQL instance, 
    iv. Use the user to connect from QuickSight and it should be able to connect successfully using the "md5" encryption and not "scram-sha-256".
 
 
-# Resources
+# Resources ........................................................................................
 [How to create a data source using Terraform - #3 by larry - Question & Answer - Amazon QuickSight Community](https://community.amazonquicksight.com/t/how-to-create-a-data-source-using-terraform/11007/3)
 [Terraform Registry](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_vpc_connection)
+
+
+# Scratch
+physcial table map (physical mapping/data from datasource)
+logical table map (joins, etc...)
+
+template: point-in-time snapshot
