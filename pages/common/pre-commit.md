@@ -85,6 +85,8 @@ Now, when you switch branches, the post-checkout Git hook will run, and it will 
 
 
 ## Gotcha
+- staging of files within pre-commit: must be in same process (!?)
+
 ### Output of hooks
 - is silent unless there is a problem (by default).
 - if script fails then the output will be displayed
