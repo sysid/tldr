@@ -150,7 +150,7 @@ cargo update
 - [Cargo Targets - The Cargo Book](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#binaries)
 - `main.rs`: entry point for an executable crate.
 - If the crate has multiple executables, each executable will have its own `*.rs` file in the `src/bin` directory.
-- to make a crate a lib you just rename the file main.rs to lib.rs, voil, now is a library
+- to make a crate a lib you just rename the file main.rs to lib.rs, now is a library
 
 There are two ways to create executable targets that don't have main.rs at their root.
 ### Method 1: Declare a binary target in cargo.toml
@@ -187,7 +187,6 @@ mod server {
 ```
 
 ## build.rs, Build Script
-standalone Rust file that is executed by Cargo, Rust's package manager, before building the main project.
 When Cargo detects a build.rs file in the root of a package, it treats it as a build script and executes it before building the main package.
 Build scripts are used to perform various tasks during the build process, such as code generation, configuration, compilation of C/C++ code, linking to system libraries, and more.
 
