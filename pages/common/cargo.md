@@ -262,26 +262,51 @@ travis-ci = { repository = "your-username/my-project" }
 ```
 
 ## Workspace, Package Members
-- members will be included in the package when it is built using the cargo build command.
+A Rust project can have more than one Cargo.toml file if it's a workspace.
+A workspace is a set of packages that share the same Cargo.lock and output directory.
+This allows you to share common dependencies between packages and manage them in one place, while still keeping your packages separate.
+Each package/member has its own Cargo.toml file, and they can be built and tested independently. This can be particularly useful for larger projects.
+
 - The format of the `[member]` section is a list of file or directory paths, each on a new line, that are relative to the package's root directory.
 - package members file can have separate `main.rs` files.
-- When building the package using cargo build, each member with a `main.rs` file will be built as a separate binary.
+- member with a `main.rs` file will be built as a separate binary.
 - It's also possible to have a package with multiple binary members in which each of them can have its own `main.rs` and `lib.rs` if needed.
 - This can be useful for creating multiple command line utilities or applications within a single package.
 ```toml
-// master Cargo.toml as shell
-[workspace]
-members = ["db_stuff", "ftbmh"]
+# Here's an example directory structure for a workspace:
+/my_project
+  Cargo.toml
+  /my_library
+    Cargo.toml
+  /my_binary
+    Cargo.toml
 
-// ftbmh/Cargo.tom
+// In this case, the top-level Cargo.toml file is used to define the workspace:
+[workspace]
+members = [
+    "my_library",
+    "my_binary",
+]
+
+// And each of the my_library and my_binary directories contains a Cargo.toml for their own package:
+// my_library/Cargo.toml
 [package]
-// your stuff
+name = "my_library"
+version = "0.1.0"
+edition = "2021"
 
 [dependencies]
-// your dependencies
-db_stuff = { path = "../db_stuff" } // as you may know the `..`
-// in the path refers to the mother folder of the current one
+
+// my_binary/Cargo.toml
+[package]
+name = "my_binary"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+my_library = { path = "../my_library" }
 ```
+
 
 
 # Packages, Crates, Modularity ....................................................................
