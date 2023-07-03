@@ -71,6 +71,35 @@ In order to quickly allow QuickSight to connect to the RDS PostgreSQL instance, 
    iv. Use the user to connect from QuickSight and it should be able to connect successfully using the "md5" encryption and not "scram-sha-256".
 
 
+## Usermanagement/Authentication
+Kai Baukus
+Anthony.Carnevale@bmw.de; DE-300
+Aladawy Dina Khaled Saber Amin, DE-720 <Dina-Khaled-Saber-Amin.Aladawy@bmw.de>; (Dev)
+Huber Florian, DE-720 <Florian.MA.Huber@bmwgroup.com>
+
+via CDH login (AD Gruppe)
+muss im CDH Cloudroom sein
+Ticket zum CDH (Rollennahme und Account-ID)
+
+CDH Core: Focus Hour
+IDP muss quicksight (service-provider) requests akzeptieren
+Authorisierung über ADGruppe via CDH
+
+[CDH tutorial](https://data.bmw.cloud/docs/reference_guides/x_5_quicksight.html)
+[CDH Developer](https://data.bmw.cloud/docs/for_cdh_developers/auth/index.html#quicksight-support)
+[Confluence: QuickSight User management](https://atc.bmwgroup.net/confluence/display/CDHX/QuickSight+User+management)
+[Log into Atlassian - ATC Confluence](https://atc.bmwgroup.net/confluence/display/CDHX/Federated+Service+Interface+Contract+TEMPLATE)
+
+[ADGR](https://adgr-prod.bmwgroup.net/adgr/client_selection.jsf?dswid=515)
+
+
+## SPICE
+- incremental update: immer noch hinzufügen, läuft voll
+- direkct query (teurer), delta load (add 1 tag delete 1 tag) lösung ist unbekannt
+
+
+
+
 # Resources ........................................................................................
 [How to create a data source using Terraform - #3 by larry - Question & Answer - Amazon QuickSight Community](https://community.amazonquicksight.com/t/how-to-create-a-data-source-using-terraform/11007/3)
 [Terraform Registry](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_vpc_connection)
