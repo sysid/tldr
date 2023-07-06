@@ -92,6 +92,12 @@ Authorisierung über ADGruppe via CDH
 
 [ADGR](https://adgr-prod.bmwgroup.net/adgr/client_selection.jsf?dswid=515)
 
+05.07.23:
+1. Quicksight Prod vs Test
+2. Location of Quicksight
+3. Limitations
+4. Parallel Use of other Auth
+
 
 ## SPICE
 - incremental update: immer noch hinzufügen, läuft voll
