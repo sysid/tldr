@@ -33,7 +33,6 @@
 
 - Convert MP4 video to VP9 codec. For the best quality, use a CRF value (recommended range 15-35) and -b:v MUST be 0:
 
-<<<<<<< HEAD
 `ffmpeg -i {{input_video}}.mp4 -codec:video libvpx-vp9 -crf {{30}} -b:video 0 -codec:audio libopus -vbr on -threads {{number_of_threads}} {{output_video}}.webm`
 
 
@@ -62,6 +61,12 @@ ffmpeg -i bbb_audio.wav -ac 2 -ar 44100 -b:a 320k bbb_audio_hqfull.ogg
 
 # resample/resize: https://ottverse.com/change-resolution-resize-scale-video-using-ffmpeg/
 ffmpeg -i input.mp4 -vf scale=1280:720 -preset slow -crf 18 output.mp4
+
+# half the mov size
+ffmpeg -i input.mov -vf "scale=iw/2:ih/2" output.mov
+ffmpeg -i input.mov -vf "scale=iw/2:ih/2:force_original_aspect_ratio=decrease" -c:a copy output.mov
+ffmpeg -i input.mov -vf "scale=iw/2:-2" output.mov
+
 ```
 
 ## Record on OSX
@@ -87,6 +92,3 @@ ffplay -i tcp://local_host_or_IP_addr:port?listen -hide_banner
 
 ## Resources
 [FFmpeg - Ultimate Guide | IMG.LY Blog](https://img.ly/blog/ultimate-guide-to-ffmpeg/)
-=======
-`ffmpeg -i {{input_video}}.mp4 -codec:v libvpx-vp9 -crf {{30}} -b:v 0 -codec:a libopus -vbr on -threads {{number_of_threads}} {{output_video}}.webm`
->>>>>>> 9a001126ea73ce25630d04e310fa7d19c26bf4cf
