@@ -185,6 +185,33 @@ mod server {
 }
 // This crate has a top-level utils module and a server module, which has two submodules called router and handler.
 ```
+### Using external Crates
+The `extern crate` construct was needed in Rust 2015.
+
+---
+<!--ID:1688811538565-->
+1. How to use external Creates
+> ```rust
+> // You can now directly write:
+> use crate::SomeType;
+> ```
+
+---
+```rust
+extern crate skim;
+use skim::SomeType;
+
+// You can now directly write:
+use skim::SomeType;
+
+// The extern crate construct is still needed in a few situations in Rust 2018:
+// You want to rename a crate for use in your program.
+extern crate rand as my_rand;
+
+// You're creating a binary and need to use a crate only for its side effects (for example, it only provides macros or it links with a library).
+extern crate my_macro_crate;
+```
+
 
 ## build.rs, Build Script
 When Cargo detects a build.rs file in the root of a package, it treats it as a build script and executes it before building the main package.
