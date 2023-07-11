@@ -336,8 +336,11 @@ my_library = { path = "../my_library" }
 
 
 # Packages, Crates, Modularity ....................................................................
+- Packages provide functionality and include a Cargo.toml file that describes how to build a bundle of 1+ crates.
+- Crates are a tree of modules, where a binary crate creates an executable and a library crate compiles to a library.
+
 Rust code is organized on two levels:
-1. as a tree of inter-dependent modules inside a crate
+1. as a tree of modules inside a crate
 2. and as a directed acyclic graph of crates
 
 - Cyclic dependencies are allowed between the modules, but not between the crates.
@@ -352,6 +355,7 @@ Rust code is organized on two levels:
 
 ## Modules
 - In Rust, all files and folders are modules
+- Modules are a privacy boundary: items are private by default (hides implementation details).
 - module: `pub mod xxx {}`, provides encapsulation
 - folders as modules: file named `mod.rs` must exist
 - think of the `mod.rs` file as defining the interface to your module
@@ -359,6 +363,8 @@ Rust code is organized on two levels:
 ## Visibility
 Everything inside a module (ie, a file or subfolder within the /src folder) can access anything else within that module.
 Everything outside a module can only access public members of that module.
+A module can bring symbols from another module into scope: `use std::collections::HashSet;`
+
 
 ## imports
 - When import with `mod`, Rust automatically creates a module namespace.
@@ -396,7 +402,6 @@ fn main() {
   let _a = Another {};
 }
 ```
-
 
 ## Tricks
 - un-conditional sharing of code:
