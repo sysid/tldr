@@ -47,7 +47,11 @@ sops -e --in-place --input-type dotenv --output-type dotenv --pgp 60A4127E82E218
 # non interactive decrypt
 sops --decrypt xxx.yaml
 sops -d --input-type dotenv --output-type dotenv yyy  # file-type required
+
+# change/update key
+sops updatekey xx.yaml
 ```
+- self containing (e.g. gpg: public key)
 
 
 ## config
