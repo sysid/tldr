@@ -158,7 +158,7 @@ repos:
     language: system
     entry: pipenv run pytest
     types: [python]
-    pass_filenames: false
+    pass_filenames: false  # run without any arguments, so it won't fail even if some of the staged files would cause the hook to fail
 
   - id: pytest-cov
     name: pytest

@@ -18,3 +18,14 @@
 - Lint a file or directory recursively but exclude files matching the given globs or substrings:
 
 `flake8 --exclude {{substring1,glob2}} {{path/to/file_or_directory}}`
+
+
+# Custom ...........................................................................................
+## Exlude Findings
+```python
+# flake8: noqa: B008
+
+# Your code starts here
+def some_function():
+    pass
+```
