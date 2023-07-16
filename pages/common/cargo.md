@@ -356,6 +356,7 @@ Rust code is organized on two levels:
 ## Modules
 
 ---
+<!--ID:1689490637284-->
 1. What is a module?
 > - all files and folders are modules
 > - Modules are a privacy boundary: items are private by default (hides implementation details).
@@ -383,6 +384,7 @@ Rust code is organized on two levels:
 ## Visibility
 
 ---
+<!--ID:1689490637285-->
 1. Explain item visibility.
 > Everything inside a module (ie, a file or subfolder within the /src folder) can access anything else within that module.
 > Everything outside a module can only access public members of that module.
