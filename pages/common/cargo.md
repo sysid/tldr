@@ -354,17 +354,56 @@ Rust code is organized on two levels:
 - If a package contains `src/main.rs` and `src/lib.rs`, it has two crates: a binary and a library, both with the same name as the package.
 
 ## Modules
-- In Rust, all files and folders are modules
-- Modules are a privacy boundary: items are private by default (hides implementation details).
-- module: `pub mod xxx {}`, provides encapsulation
-- folders as modules: file named `mod.rs` must exist
-- think of the `mod.rs` file as defining the interface to your module
+
+---
+1. What is a module?
+> - all files and folders are modules
+> - Modules are a privacy boundary: items are private by default (hides implementation details).
+> - module: `mod xxx {}`, provides encapsulation
+> - folders as modules: file named `mod.rs` can exist (similar to `lib.rs`)
+> - think of the `mod.rs` file as defining the interface to your module
+> ```rust
+> src/
+>   collections/
+>     prefixed.rs
+> // lib.rs, main.rs
+> mod collections {
+>     pub mod prefixed;
+> }
+> src/
+>   collections/
+>     mod.rs
+>     prefixed.rs
+> // collections/mod.rs:
+> pub mod prefixed;
+> ```
+
+---
 
 ## Visibility
-Everything inside a module (ie, a file or subfolder within the /src folder) can access anything else within that module.
-Everything outside a module can only access public members of that module.
-A module can bring symbols from another module into scope: `use std::collections::HashSet;`
 
+---
+1. Explain item visibility.
+> Everything inside a module (ie, a file or subfolder within the /src folder) can access anything else within that module.
+> Everything outside a module can only access public members of that module.
+> A module can bring symbols from another module into scope: `use std::collections::HashSet;`
+> each item (function, struct, enum, MODULE, etc.) controls its own visibility.
+> ```rust
+> // lib.rs
+> pub mod col {  // pub required
+>     pub mod prefixed {  // pub required
+>         pub fn hello() {  // pub required
+>             println!("Hello, world!");
+>         }
+>     }
+> }
+> use twlr::col::prefixed::hello;
+> fn main() {
+>     hello();
+> }
+> ```
+
+---
 
 ## imports
 - When import with `mod`, Rust automatically creates a module namespace.
