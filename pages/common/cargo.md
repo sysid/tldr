@@ -48,6 +48,8 @@ The default Cargo home directory depends on your operating system:
 - On Windows: %USERPROFILE%\.cargo
 
 ```bash
+cargo add serde --features derive  # list features via crate's Cargo.toml
+
 cargo tree
 cargo tree --prefix none
 
