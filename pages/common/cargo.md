@@ -187,6 +187,26 @@ mod server {
 }
 // This crate has a top-level utils module and a server module, which has two submodules called router and handler.
 ```
+---
+<!--ID:1690041467775-->
+1. How to use functions from lib.rs in main.rs?
+> - make sure the function is declared as pub (public) in lib.rs
+> - import it: 'your_create_name' from Cargo.toml (NOT: lib.rs)
+> ```rust
+> // lib.rs
+> pub fn say_hello() {
+>     println!("Hello, world!");
+> }
+> // main.rs
+> use your_crate_name::say_hello;  // replace `your_crate_name` with the actual name of your crate
+> fn main() {
+>     say_hello();
+> }
+> ```
+
+---
+
+
 ### Using external Crates
 The `extern crate` construct was needed in Rust 2015.
 
