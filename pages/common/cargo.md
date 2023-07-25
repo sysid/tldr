@@ -84,6 +84,20 @@ cargo install cargo-edit
 ## cargo login, Authentication for Crates.io
 - PAT generated via Github OAuth
 
+## Environment variables Cargo sets for crates
+[Environment Variables - The Cargo Book](https://doc.rust-lang.org/cargo/reference/environment-variables.html#environment-variables-cargo-sets-for-crates)
+
+---
+<!--ID:1690266452871-->
+1. How to get important Cargo set env variables in your program?
+> ```rust
+> let version = env!("CARGO_PKG_VERSION");
+> ```
+> Note that if one of these values is not provided in the manifest, the corresponding environment variable is set to the empty string, "".
+> CARGO_MANIFEST_DIR -- The directory containing the manifest of your package (Cargo.toml)
+> not usefull for include_dir because it requires string literal instead of string
+
+---
 
 
 # Dependency management ...........................................................................
@@ -148,6 +162,7 @@ cargo update
 - Each package may contain max ONE library crates and multiple binary test and benchmark crates.
 - Crates have a root module code file and code files included from this.
 
+
 ## main.rs, Binaries
 - [Cargo Targets - The Cargo Book](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#binaries)
 - `main.rs`: entry point for an executable crate.
@@ -207,7 +222,6 @@ mod server {
 
 ---
 
-
 ### Using external Crates
 The `extern crate` construct was needed in Rust 2015.
 
@@ -220,21 +234,6 @@ The `extern crate` construct was needed in Rust 2015.
 > ```
 
 ---
-```rust
-extern crate skim;
-use skim::SomeType;
-
-// You can now directly write:
-use skim::SomeType;
-
-// The extern crate construct is still needed in a few situations in Rust 2018:
-// You want to rename a crate for use in your program.
-extern crate rand as my_rand;
-
-// You're creating a binary and need to use a crate only for its side effects (for example, it only provides macros or it links with a library).
-extern crate my_macro_crate;
-```
-
 
 ## build.rs, Build Script
 When Cargo detects a build.rs file in the root of a package, it treats it as a build script and executes it before building the main package.
@@ -401,8 +400,33 @@ Rust code is organized on two levels:
 > // collections/mod.rs:
 > pub mod prefixed;
 > ```
+<!--ID:1690266452875-->
+1. Given the structure:
+```
+├── confguard
+│   └── tests.rs
+├── confguard.rs
+├── lib.rs
+└── main.rs
+```
+Explain it.
+> The confguard/ directory and confguard.rs file are connected, acting as one module.
+> 'confguard.rs' is the main module file for confguard.
+> directory named confguard is considered as a submodule
+> ```rust
+> // If to access the tests.rs file (which is a sub-module) from confguard.rs
+> // confguard.rs
+> mod tests;
+>
+> // And if you want to use something from the tests module:
+> // confguard.rs
+> mod tests;
+> use tests::some_function;
+> ```
 
 ---
+
+
 
 ## Visibility
 
