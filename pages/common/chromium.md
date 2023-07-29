@@ -34,3 +34,7 @@
 - Open with a DevTools window for each tab opened:
 
 `chromium --auto-open-devtools-for-tabs`
+
+
+# Custom ...........................................................................................
+brew install chromium --no-quarantine
