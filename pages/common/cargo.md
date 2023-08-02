@@ -184,6 +184,11 @@ path = "src/example.rs"
 - If you move src/example.rs to `src/bin/example.rs`, you'll be able to immediately run your example binary with `$ cargo run --bin example`
 - Do note that once you've declare more than one binary target, you will need to use the --bin flag whenever you invoke cargo run. For more information, see the Cargo Targets docs for binary targets.
 
+#### Installation
+```bash
+cargo install --path .  # nothgin else needed in Cargo.toml
+```
+
 
 ## lib.rs
 - is the crate's root module and serves as the public interface for the crate.
