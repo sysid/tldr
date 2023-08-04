@@ -34,3 +34,19 @@
 - Search `stdin` for lines that do not match a pattern:
 
 `cat {{path/to/file}} | grep --invert-match "{{search_pattern}}"`
+
+# Custom ...........................................................................................
+
+---
+<!--ID:1691129181805-->
+1. How to filter for a list of words with grep?
+> ```bash
+> grep -E 'apple|banana|cherry' file.txt
+>
+> # match exactly the words and not just lines containing them, you can use word boundaries
+> grep -E '\b(apple|banana|cherry)\b' file.txt
+>
+> grep -v -E '\b(apple|banana|cherry)\b' file.txt
+> ```
+
+---

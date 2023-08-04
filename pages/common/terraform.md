@@ -33,6 +33,8 @@
 
 - environment variables `TF_VAR_xxx`, hardcode in `*.tf` (i.e. `TF_VAR_ENVIRONMNET_PREFIX`)
 ```bash
+tf plan -var-file=../terraform.tfvars
+
 tf init  # initializes .terraform and loads providers, modules and installs backend
 
 # Change Backend Configuration During the Init
