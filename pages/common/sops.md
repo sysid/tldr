@@ -85,6 +85,7 @@ age has a smaller codebase compared to PGP, which makes it easier to audit and m
 
 ## Gotcha
 - many parallel runs cause locing race condition`: Failed to get the data key required to decrypt the SOPS file.`
+- blank lines are ignored and lost in restore
 
 ## Resources
 [GitHub - mozilla/sops: Simple and flexible tool for managing secrets](https://github.com/mozilla/sops)

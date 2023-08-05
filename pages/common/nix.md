@@ -32,3 +32,8 @@
 - Start an interactive environment for evaluating Nix expressions:
 
 `nix repl`
+
+
+# Custom ...........................................................................................
+[Welcome to nix.dev — nix.dev  documentation](https://nix.dev/)
+[Nix Pills | Nix & NixOS](https://nixos.org/guides/nix-pills/)
