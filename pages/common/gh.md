@@ -42,8 +42,10 @@
 - renaming repos does NOT break the exisiting remote urls
 
 ---
+<!--ID:1691166851926-->
 1. How to see what's on for me in Github?
 > `gh status
+<!--ID:1691166851928-->
 1. How to find a repo in GH?
 > ```bash
 > gh search repos <name>
@@ -54,6 +56,7 @@
 > gh clone-org -n -s "is:private" sysid
 > gh clone-org -n -s "archived:true" sysid
 > ```
+<!--ID:1691166851929-->
 1. How to run GH (deploy) action?
 > ```bash
 > gh actions  # get help
