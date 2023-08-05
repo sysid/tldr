@@ -188,6 +188,8 @@ path = "src/example.rs"
 ```bash
 cargo install --path .  # nothgin else needed in Cargo.toml
 ```
+### Method 3: workspaces
+[Building Multiple Binaries in Rust - crustc](https://crustc.com/building-multiple-binaries-in-rust/)
 
 
 ## lib.rs
@@ -515,3 +517,10 @@ mod tests {
 
 ## Features
 - to find out the available features: read Cargo.toml on Github
+
+
+
+# Compiler .........................................................................................
+## Caching and Accelartor
+[A random assortment of Rust notes – Brian Kung](https://briankung.dev/2023/07/16/rust-notes/)
+[GitHub - mozilla/sccache: sccache is ccache with cloud storage](https://github.com/mozilla/sccache)
