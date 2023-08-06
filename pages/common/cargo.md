@@ -38,20 +38,18 @@
 
 
 
-# Oprations ............................................................................................
+# Operations ............................................................................................
 - dev-dependencies documentation cannot be generated. Workaround: add it as regular dependency
 - examples of deps can be run directly, crates seem to be self sufficient
 - binary files for the cargo-edit commands (such as cargo-add, cargo-rm, and cargo-upgrade) are installed in the bin directory under the default Cargo home directory.
-
-The default Cargo home directory depends on your operating system:
-- On Linux and macOS: $HOME/.cargo
-- On Windows: %USERPROFILE%\.cargo
-
 ```bash
 cargo add serde --features derive  # list features via crate's Cargo.toml
 
 cargo tree
 cargo tree --prefix none
+
+# list example targets
+cargo run --example
 
 # find dependencies that can optionally use a crate as well, e.g. Tokio has a feature flag to enable parking_lot, but I want to find all my dependencies that have similar feature flags.
 cargo metadata --format-version 1 | jq -c '.packages[] | select(
@@ -66,12 +64,6 @@ cargo metadata --format-version 1 | jq -c '.packages[] | select(
 cargo metadata --format-version 1 | jq '.packages[].targets[] | select(.kind[] == "lib") | .name'
 # find example targets
 cargo metadata --format-version 1 | jq '.packages[].targets[] | select(.kind[] == "example") | .name'
-
-# list example targets
-cargo run --example
-
-# Release
-$ cargo install cargo-release
 ```
 
 ## Installation/Upgrade
@@ -117,10 +109,14 @@ cargo upgrade  # update Cargo.toml
 cargo update
 ```
 
+
 # Structure ........................................................................................
 - [Package Layout - The Cargo Book](https://doc.rust-lang.org/cargo/guide/project-layout.html)
+A Rust project can have more than one Cargo.toml file if it's a workspace.
 - projects can be composed of multiple files (which are modules), that can be nested within folders (which are also modules).
-- In order to access the root of that module tree, you can always use the crate:: prefix.
+- In order to access the root of that module tree, you can always use the `crate::` prefix.
+- workspaces, containing packages, containing crates, containing multiple source files belonging to different modules.
+- Cyclic dependencies are allowed between the modules, but not between the crates.
 
    project_name/
    ├── Cargo.toml
@@ -155,12 +151,297 @@ cargo update
               user_test.rs
               post_test.rs
 
-- workspaces, containing packages, containing crates, containing multiple source files belonging to different modules.
-- many people use the term "crate" when they actually mean packages. This is because each package contains only one library crate that is assoziated with the package.
+Rust code is organized on two levels:
+1. as a tree of modules inside a crate
+2. and as a directed acyclic graph of crates
+
+- crates are anonymous, so you don't get name conflicts and dependency hell when mixing several versions of the same crate in a single crate graph.
+- This makes it very easy to make two pieces of code not depend on each other (non-dependencies are the essence of modularity): just put them in separate crates.
+- During code review, only changes to Cargo.toml need to be monitored carefully.
+
+
+## Workspace
+- is a set of packages that share the same `Cargo.lock` and output directory.
 - Typically each codebase has only a single workspace, which for small projects often only contains a single package.
+- This allows to share common dependencies between packages and manage them in one place, while still keeping packages separate.
+- Each package/member has its own `Cargo.toml` file, and they can be built and tested independently
+- `[member]` section is a list of file or directory paths, each on a new line, that are relative to the package's root directory.
+- member with a `main.rs` file will be built as a separate binary.
+```toml
+# Here's an example directory structure for a workspace:
+/my_project
+  Cargo.toml
+  /my_library
+    Cargo.toml
+  /my_binary
+    Cargo.toml
+
+# In this case, the top-level Cargo.toml file is used to define the workspace:
+[workspace]
+members = [
+    "my_library",
+    "my_binary",
+]
+
+# And each of the my_library and my_binary directories contains a Cargo.toml for their own package:
+# my_library/Cargo.toml
+[package]
+name = "my_library"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+# my_binary/Cargo.toml
+[package]
+name = "my_binary"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+my_library = { path = "../my_library" }
+```
+
+
+## Package
+- include a Cargo.toml file that describes how to build a bundle of 1+ crates.
+- many people use the term "crate" when they actually mean packages. This is because each package contains only one library crate that is assoziated with the package.
 - Each package has its own `Cargo.toml` file.
-- Each package may contain max ONE library crates and multiple binary test and benchmark crates.
+- A package can contain as many binary crates as you like, but at most only one library crate.
+- If a package contains `src/main.rs` and `src/lib.rs`, it has two crates: a binary and a library, both with the same name as the package.
+
+### Crates
+- Crates are a tree of modules, where a binary crate creates an executable and a library crate compiles to a library.
 - Crates have a root module code file and code files included from this.
+- Each package may contain max ONE library crate and multiple binary test and benchmark crates.
+- Crates are units of reuse and privacy: only crate's public API matters
+- Most of the time when Rustaceans say "crate", they mean library crate, and they use "crate" interchangeably with the general programming concept of a "library"
+
+### imports
+- When import with `mod`, Rust automatically creates a module namespace.
+- The module namespace is automatically taken from the file name
+- import all public names from a module with a wildcard `::*`
+- access the root of the module tree (ie, the main module in this case) using `crate::`
+```rust
+mod geo;
+use geo::calculations::distance as d
+```
+
+### re-exports
+- act of exposing the contents of another crate in the current crate's public interface.
+- allows users of the current crate to use the types, functions, and constants of the re-exported crate as if they were defined in the current crate.
+- re-export a commonly used crate to make it easier for users of your crate to access its functionality,
+```rust
+extern crate collections;
+pub use collections::HashMap;  // would allow users of your crate to use the HashMap type as follows:
+
+use your_crate::HashMap;
+```
+
+### prelude
+pattern for making available all types you want to be public
+```
+mod foo;
+mod prelude {                             <-- Create module inline
+  pub use crate::foo::{MyStruct,Another}; <-- Note the 'pub' here!
+}
+use crate::prelude::*;                    <-- Make the types exposed
+                                              in the prelude
+                                              available
+fn main() {
+  let _ms = MyStruct {};
+  let _a = Another {};
+}
+```
+
+## Modules
+
+---
+<!--ID:1689490637284-->
+1. What is a module?
+> - all files and folders are modules
+> - Modules are a privacy boundary: items are private by default (hides implementation details).
+> - module: `mod xxx {}`, provides encapsulation
+> - folders as modules: file named `mod.rs` can exist (similar to `lib.rs`)
+> - think of the `mod.rs` file as defining the interface to your module
+> ```rust
+> src/
+>   collections/
+>     prefixed.rs
+> // lib.rs, main.rs
+> mod collections {
+>     pub mod prefixed;
+> }
+> src/
+>   collections/
+>     mod.rs
+>     prefixed.rs
+> // collections/mod.rs:
+> pub mod prefixed;
+> ```
+<!--ID:1690266452875-->
+1. Given the structure:
+```
+├── confguard
+│   └── tests.rs
+├── confguard.rs
+├── lib.rs
+└── main.rs
+```
+Explain it.
+> The confguard/ directory and confguard.rs file are connected, acting as one module.
+> 'confguard.rs' is the main module file for confguard.
+> directory named confguard is considered as a submodule
+> ```rust
+> // If to access the tests.rs file (which is a sub-module) from confguard.rs
+> // confguard.rs
+> mod tests;
+>
+> // And if you want to use something from the tests module:
+> // confguard.rs
+> mod tests;
+> use tests::some_function;
+> ```
+
+---
+
+### Hierarchical Module Structure
+
+---
+<!--ID:1691326957561-->
+1. How to structure a hierarchical module in Rust?
+> ```rust
+> src/
+> |-- geometry/
+> |   |-- circle/
+> |   |   |-- area.rs
+> |   |   |-- circumference.rs
+> |   |   |-- tests/
+> |   |       |-- area_tests.rs
+> |   |       |-- circumference_tests.rs
+> |   |-- rectangle/
+> |   |   |-- area.rs
+> |   |   |-- perimeter.rs
+> |   |   |-- tests/
+> |   |       |-- area_tests.rs
+> |   |       |-- perimeter_tests.rs
+> |   |-- circle.rs
+> |   |-- rectangle.rs
+> |-- geometry.rs
+> |-- lib.rs
+>
+> // lib.rs
+> pub mod geometry;
+>
+> // geometry.rs
+> pub mod circle;
+> pub mod rectangle;
+> // geometry/circle.rs
+> pub mod area;
+> pub mod circumference;
+> #[cfg(test)]
+> mod tests;
+> // geometry/rectangle.rs
+> pub mod area;
+> pub mod perimeter;
+> #[cfg(test)]
+> mod tests;
+> ```
+
+---
+
+
+### Spliting struct implementation accross files/modules
+- use submodule directory structure
+- integrate submodules in main-module
+```rust
+// main.rs
+mod my_struct_impl;
+pub struct MyStruct {
+    pub data: i32,
+}
+fn main() {
+    let instance = MyStruct::new(5);
+    instance.display();
+}
+
+// my_struct_impl.rs
+mod display_impl;  // !!!!!
+use super::MyStruct;
+impl MyStruct {
+    pub fn new(value: i32) -> Self {
+        MyStruct { data: value }
+    }
+}
+
+// my_struct_impl/display_impl.rs
+use super::MyStruct;
+impl MyStruct {
+    pub fn display(&self) {
+        println!("Data: {}", self.data);
+    }
+}
+```
+
+
+## Features of a Crate
+- only reliable way to explore available features of a crate: read Cargo.toml on Github
+
+
+
+## Visibility
+- Rust seems not to look at semantic structure (e.g. struct split over several impl files/modules), but only at fs structure
+
+test_guard.rs does not see private members in guard.rs:
+- Gotcha: sibling modules vs. sub-modules (must be in folder with same name)
+
+├── confguard
+│   ├── test_guard.rs
+│   ├── guard.rs
+├── confguard.rs  # mod test_guard;
+├── lib.rs
+└── main.rs
+
+correct:
+├── confguard
+│   ├── guard
+│   │   └── test_guard.rs
+│   ├── guard.rs  # mod test_guard;
+├── confguard.rs
+├── lib.rs
+└── main.rs
+
+---
+<!--ID:1689490637285-->
+1. Explain item visibility.
+> Everything inside a module (ie, a file or subfolder within the /src folder) can access anything else within that module.
+> Everything outside a module can only access public members of that module.
+> A module can bring symbols from another module into scope: `use std::collections::HashSet;`
+> each item (function, struct, enum, MODULE, etc.) controls its own visibility.
+> ```rust
+> // lib.rs
+> pub mod col {  // pub required
+>     pub mod prefixed {  // pub required
+>         pub fn hello() {  // pub required
+>             println!("Hello, world!");
+>         }
+>     }
+> }
+> use twlr::col::prefixed::hello;
+> fn main() {
+>     hello();
+> }
+> ```
+
+---
+
+
+## Rules of Thumb
+- Cohesion: Code that is closely related in functionality or purpose should be kept together
+- Ease of Navigation: One benefit of splitting code into multiple files is ease of navigation
+- Reduce Merge Conflicts: In a team setting, if everyone is working on the same file, it can lead to frequent merge conflicts
+- Compile Time: Rust's incremental compilation can speed up compile times if the codebase is organized into multiple files
+- Test Organization: Using Rust's convention of placing unit tests at the bottom of the file they test (inside a #[cfg(test)] module) can lead to long files if there are many tests
 
 
 ## main.rs, Binaries
@@ -242,6 +523,7 @@ The `extern crate` construct was needed in Rust 2015.
 
 ---
 
+
 ## build.rs, Build Script
 When Cargo detects a build.rs file in the root of a package, it treats it as a build script and executes it before building the main package.
 Build scripts are used to perform various tasks during the build process, such as code generation, configuration, compilation of C/C++ code, linking to system libraries, and more.
@@ -315,208 +597,6 @@ all-features = true
 [badges]
 travis-ci = { repository = "your-username/my-project" }
 ```
-
-## Workspace, Package Members
-A Rust project can have more than one Cargo.toml file if it's a workspace.
-A workspace is a set of packages that share the same Cargo.lock and output directory.
-This allows you to share common dependencies between packages and manage them in one place, while still keeping your packages separate.
-Each package/member has its own Cargo.toml file, and they can be built and tested independently. This can be particularly useful for larger projects.
-
-- The format of the `[member]` section is a list of file or directory paths, each on a new line, that are relative to the package's root directory.
-- package members file can have separate `main.rs` files.
-- member with a `main.rs` file will be built as a separate binary.
-- It's also possible to have a package with multiple binary members in which each of them can have its own `main.rs` and `lib.rs` if needed.
-- This can be useful for creating multiple command line utilities or applications within a single package.
-```toml
-# Here's an example directory structure for a workspace:
-/my_project
-  Cargo.toml
-  /my_library
-    Cargo.toml
-  /my_binary
-    Cargo.toml
-
-// In this case, the top-level Cargo.toml file is used to define the workspace:
-[workspace]
-members = [
-    "my_library",
-    "my_binary",
-]
-
-// And each of the my_library and my_binary directories contains a Cargo.toml for their own package:
-// my_library/Cargo.toml
-[package]
-name = "my_library"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-
-// my_binary/Cargo.toml
-[package]
-name = "my_binary"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-my_library = { path = "../my_library" }
-```
-
-
-
-# Packages, Crates, Modularity ....................................................................
-- Packages provide functionality and include a Cargo.toml file that describes how to build a bundle of 1+ crates.
-- Crates are a tree of modules, where a binary crate creates an executable and a library crate compiles to a library.
-
-Rust code is organized on two levels:
-1. as a tree of modules inside a crate
-2. and as a directed acyclic graph of crates
-
-- Cyclic dependencies are allowed between the modules, but not between the crates.
-- Crates are units of reuse and privacy: only crate's public API matters
-- crates are anonymous, so you don't get name conflicts and dependency hell when mixing several versions of the same crate in a single crate graph.
-- This makes it very easy to make two pieces of code not depend on each other (non-dependencies are the essence of modularity): just put them in separate crates.
-- During code review, only changes to Cargo.toml need to be monitored carefully.
-
-- Most of the time when Rustaceans say "crate", they mean library crate, and they use "crate" interchangeably with the general programming concept of a "library"
-- A package can contain as many binary crates as you like, but at most only one library crate.
-- If a package contains `src/main.rs` and `src/lib.rs`, it has two crates: a binary and a library, both with the same name as the package.
-
-## Modules
-
----
-<!--ID:1689490637284-->
-1. What is a module?
-> - all files and folders are modules
-> - Modules are a privacy boundary: items are private by default (hides implementation details).
-> - module: `mod xxx {}`, provides encapsulation
-> - folders as modules: file named `mod.rs` can exist (similar to `lib.rs`)
-> - think of the `mod.rs` file as defining the interface to your module
-> ```rust
-> src/
->   collections/
->     prefixed.rs
-> // lib.rs, main.rs
-> mod collections {
->     pub mod prefixed;
-> }
-> src/
->   collections/
->     mod.rs
->     prefixed.rs
-> // collections/mod.rs:
-> pub mod prefixed;
-> ```
-<!--ID:1690266452875-->
-1. Given the structure:
-```
-├── confguard
-│   └── tests.rs
-├── confguard.rs
-├── lib.rs
-└── main.rs
-```
-Explain it.
-> The confguard/ directory and confguard.rs file are connected, acting as one module.
-> 'confguard.rs' is the main module file for confguard.
-> directory named confguard is considered as a submodule
-> ```rust
-> // If to access the tests.rs file (which is a sub-module) from confguard.rs
-> // confguard.rs
-> mod tests;
->
-> // And if you want to use something from the tests module:
-> // confguard.rs
-> mod tests;
-> use tests::some_function;
-> ```
-
----
-
-
-
-## Visibility
-
----
-<!--ID:1689490637285-->
-1. Explain item visibility.
-> Everything inside a module (ie, a file or subfolder within the /src folder) can access anything else within that module.
-> Everything outside a module can only access public members of that module.
-> A module can bring symbols from another module into scope: `use std::collections::HashSet;`
-> each item (function, struct, enum, MODULE, etc.) controls its own visibility.
-> ```rust
-> // lib.rs
-> pub mod col {  // pub required
->     pub mod prefixed {  // pub required
->         pub fn hello() {  // pub required
->             println!("Hello, world!");
->         }
->     }
-> }
-> use twlr::col::prefixed::hello;
-> fn main() {
->     hello();
-> }
-> ```
-
----
-
-## imports
-- When import with `mod`, Rust automatically creates a module namespace.
-- The module namespace is automatically taken from the file name
-- import all public names from a module with a wildcard `::*`
-- access the root of the module tree (ie, the main module in this case) using `crate::`
-```rust
-mod geo;
-use geo::calculations::distance as d
-```
-
-## re-exports
-- act of exposing the contents of another crate in the current crate's public interface.
-- allows users of the current crate to use the types, functions, and constants of the re-exported crate as if they were defined in the current crate.
-- re-export a commonly used crate to make it easier for users of your crate to access its functionality,
-```rust
-extern crate collections;
-pub use collections::HashMap;  // would allow users of your crate to use the HashMap type as follows:
-
-use your_crate::HashMap;
-```
-
-## prelude
-pattern for making available all types you want to be public
-```
-mod foo;
-mod prelude {                             <-- Create module inline
-  pub use crate::foo::{MyStruct,Another}; <-- Note the 'pub' here!
-}
-use crate::prelude::*;                    <-- Make the types exposed
-                                              in the prelude
-                                              available
-fn main() {
-  let _ms = MyStruct {};
-  let _a = Another {};
-}
-```
-
-## Tricks
-- un-conditional sharing of code:
-```rust
-// lib.rs:
-#[cfg(test)]
-mod test_commons;
-
-// use it in unit tests
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use crate::test_commons::{self,ContainerKind,Blocking};
-...
-// us in integration tests
-#[path = "../../src/test_commons.rs"] mod test_commons;
-```
-
-## Features
-- to find out the available features: read Cargo.toml on Github
 
 
 
