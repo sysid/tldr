@@ -12,11 +12,7 @@
 
 `rsync {{remote_host}}:{{path/to/remote_file}} {{path/to/local_directory}}`
 
-<<<<<<< HEAD
 - Transfer file in [a]rchive (to preserve attributes) and compressed ([z]ipped) mode with [v]erbose and [h]uman-readable [P]rogress/partial:
-=======
-- Transfer a file in [a]rchive (to preserve attributes) and compressed ([z]ipped) mode displaying [v]erbose and [h]uman-readable [P]rogress:
->>>>>>> 2c3ac25d65fae56a93c0a8cdc9153823f84d5d09
 
 `rsync -azvhP {{path/to/local_file}} {{remote_host}}:{{path/to/remote_directory}}`
 
@@ -40,6 +36,8 @@
 
 `rsync -e 'ssh -p {{port}}' --info=progress2 {{remote_host}}:{{path/to/remote_file}} {{path/to/local_file}}`
 
+
+# Custom ...........................................................................................
 - exlcude all but one file-type
   When using multiple include/exclude option, the first matching rule applies.
 
