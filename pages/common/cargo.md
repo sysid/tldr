@@ -432,6 +432,24 @@ correct:
 >     hello();
 > }
 > ```
+<!--ID:1691587766819-->
+1. What is the effect of `mod` keyword?
+> Declaring a module.
+> ```rust
+> mod profile;
+> mod settings;
+> ```
+> ## File Loading:
+> - compiler will look for two files in same directory as the current file.
+> - It will treat the contents of profile.rs as the profile module and the contents of settings.rs as the settings module (siblings)
+>
+> ## Namespace Creation:
+> - Within the current module (or crate, if you're at the root), you now have two sub-modules
+> - if `profile` has a public function named `get_profile`, you can call it as `profile::get_profile()` from outside the profile module but within the module that declares `mod profile;`.
+>
+> ## Path Resolution:
+> - to use an item from one module in another module, use the full path or use the `use` keyword to bring it into scope
+> - use inside settings module: ` use crate::profile::get_profile;`
 
 ---
 

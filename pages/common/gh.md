@@ -44,7 +44,7 @@
 ---
 <!--ID:1691166851926-->
 1. How to see what's on for me in Github?
-> `gh status
+> `gh status`
 <!--ID:1691166851928-->
 1. How to find a repo in GH?
 > ```bash
