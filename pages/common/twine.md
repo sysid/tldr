@@ -34,3 +34,8 @@
 - Upload to PyPI showing detailed information:
 
 `twine upload --verbose dist/*`
+
+
+# Custom ...........................................................................................
+## .pypirc
+[pypi.md]($VIMWIKI_PATH/help/pypi.md)
