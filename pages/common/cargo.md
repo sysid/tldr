@@ -289,9 +289,23 @@ fn main() {
 └── main.rs
 ```
 Explain it.
-> The confguard/ directory and confguard.rs file are connected, acting as one module.
-> 'confguard.rs' is the main module file for confguard.
-> directory named confguard is considered as a submodule
+> library crate with an associated binary crate
+>
+> ### lib.rs:
+> - This is the entry point for a Rust library crate.
+> - Any public (i.e., pub) functions, structs, enums, etc. that you define in this file will be accessible when someone uses your library.
+> - You can also `mod` other files to bring their contents into scope.
+>
+> ### confguard.rs:
+> - moodule file. Inside lib.rs, you find a line `mod confguard;`, which would bring the contents of confguard.rs into scope.
+> - definitions inside confguard.rs are scoped under the confguard module. would access `foo` as `confguard::foo` from other modules or crates (assuming it's public).
+>
+> ### confguard/:
+> - confguard is a module, defined by the presence of confguard.rs which acts like `mod.rs`
+> - When you have a module that grows in complexity and needs to be split into multiple files, you can use a directory with the module's name and move the module's content into that directory.
+>
+> ### confguard/tests.rs:
+> - submodule module of the confguard module
 > ```rust
 > // If to access the tests.rs file (which is a sub-module) from confguard.rs
 > // confguard.rs
@@ -346,6 +360,25 @@ Explain it.
 > pub mod perimeter;
 > #[cfg(test)]
 > mod tests;
+> ```
+1. What is a submodule?
+> - A module is a way to organize code within a crate into separate namespaces.
+> - Modules can be nested within other modules, and when they are, the nested module is often referred to as a "submodule."
+> ```rust
+> // lib.rs or main.rs
+> mod outer {
+>     // content of the outer module
+>
+>     mod inner {
+>         // content of the inner submodule
+>     }
+> }
+>
+> .
+> └── outer.rs          // This file corresponds to the `outer` module
+> └── outer/            // This directory also corresponds to the `outer` module due to the Rust 2018 edition's path clarity
+>     └── mod.rs        // In older Rust editions, this would be the primary file for the `outer` module when split across multiple files
+>     └── inner.rs      // This file corresponds to the `inner` submodule
 > ```
 
 ---
@@ -414,6 +447,7 @@ correct:
 ---
 <!--ID:1689490637285-->
 1. Explain item visibility.
+> By default, in Rust, everything (including submodules) is private to its enclosing module.
 > Everything inside a module (ie, a file or subfolder within the /src folder) can access anything else within that module.
 > Everything outside a module can only access public members of that module.
 > A module can bring symbols from another module into scope: `use std::collections::HashSet;`
