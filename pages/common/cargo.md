@@ -93,7 +93,6 @@ cargo install cargo-edit
 
 
 # Dependency management ...........................................................................
-- version differences between Cargo.toml and Cargo.lock arise from the flexibility allowed by version constraints in Cargo.toml.
 - Cargo will choose the latest compatible version for your dependencies according to the constraints, and then record the exact version in Cargo.lock.
 - This allows Cargo to automatically pick up non-breaking updates for your dependencies while maintaining reproducible builds.
 ```bash
