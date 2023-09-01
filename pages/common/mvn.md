@@ -30,10 +30,11 @@
 
 - Clean and then package the code with a given build profile:
 
-`mvn clean -P{{profile}} package`
+`mvn clean -P {{profile}} package`
 
 - Run a class with a main method:
 
+<<<<<<< HEAD
 `mvn exec:java -Dexec.mainClass="{{com.example.Main}}" -Dexec.args="{{arg1 arg2}}"`
 
 
@@ -91,3 +92,6 @@ mvn archetype:generate -DarchetypeGroupId=org.moditect.ossquickstart -Darchetype
 mvn archetype:generate -DarchetypeGroupId=io.github.oliviercailloux -DarchetypeArtifactId=java-archetype
 
 ```
+=======
+`mvn exec:java -Dexec.mainClass="{{com.example.Main}}" -Dexec.args="{{argument1 argument2 ...}}"`
+>>>>>>> 8695f2cc1524f46d82a7e5aa453d24ae6627ef3c
