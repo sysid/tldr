@@ -94,6 +94,7 @@ gh clone-org -n sysid -s "is:private"
 PAGER="less -FX" gh repo list -L 130 --json name,updatedAt,isPrivate,isFork,isArchived,diskUsage
 cat repos.out | jq '.|sort_by(.updatedAt)[].updatedAt'
 PAGER="less -FX" gh repo list --json name,updatedAt | jq '.|sort_by(.updatedAt)[].updatedAt'
+gh config set pager "less -FX"
 
 ```
 
