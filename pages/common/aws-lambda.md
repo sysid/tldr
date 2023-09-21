@@ -30,3 +30,7 @@
 - List which AWS services can invoke the function:
 
 `aws lambda get-policy --function-name {{name}}`
+
+
+# Custom ...........................................................................................
+TF_VAR_lambda_image_uri=(aws --profile fbs-int-userfull lambda get-function --function-name fbs-csf-test | jq -r '.Code.ImageUri') make apply
