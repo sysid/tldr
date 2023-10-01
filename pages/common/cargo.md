@@ -77,17 +77,17 @@ cargo install cargo-edit
 - PAT generated via Github OAuth
 
 ## Environment variables Cargo sets for crates
-[Environment Variables - The Cargo Book](https://doc.rust-lang.org/cargo/reference/environment-variables.html#environment-variables-cargo-sets-for-crates)
 
 ---
 <!--ID:1690266452871-->
-1. How to get important Cargo set env variables in your program?
+1. How to get important automatic Cargo variables via environment variables in your program?
 > ```rust
 > let version = env!("CARGO_PKG_VERSION");
 > ```
-> Note that if one of these values is not provided in the manifest, the corresponding environment variable is set to the empty string, "".
-> CARGO_MANIFEST_DIR -- The directory containing the manifest of your package (Cargo.toml)
-> not usefull for include_dir because it requires string literal instead of string
+> Note that if one of these values is not provided in the manifest, the corresponding environment variable is set to the empty string, `""`.
+> `CARGO_MANIFEST_DIR` -- The directory containing the manifest of your package (Cargo.toml)
+> not usefull for `include_dir` because it requires string literal instead of string
+> [Environment Variables - The Cargo Book](https://doc.rust-lang.org/cargo/reference/environment-variables.html#environment-variables-cargo-sets-for-crates)
 
 ---
 
