@@ -54,5 +54,6 @@ p       print it
 sed -i.bkp "/export RUN_ID/c\export RUN_ID=$(date +%Y%m%d)" "$PROJ_DIR/service/simulation/.env.local"
 
 # replace line starting with
+# /export GH_ENTERPRISE_TOKEN/c\: The c command in sed replaces the line matching the pattern (/export GH_ENTERPRISE_TOKEN/) with the new text that follows (export GH_ENTERPRISE_TOKEN=ghp_xxx).
 sed -i "/export GH_ENTERPRISE_TOKEN/c\export GH_ENTERPRISE_TOKEN=ghp_xxx" .envrc
 ```
