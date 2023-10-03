@@ -485,6 +485,16 @@ correct:
 > - to use an item from one module in another module, use the full path or use the `use` keyword to bring it into scope
 > - use inside settings module: ` use crate::profile::get_profile;`
 
+1. Explain `mod` vs `use`.
+> - `mod` declares and includes a module but requires you to use the module's prefix to access its items.
+> - `use` brings specific items into the immediate scope, allowing you to use them without a prefix.
+>
+> While mod brings the module code into scope, you still need use for unqualified access to its items.
+
+1. Explain `use super::*;`
+> - imports all items from the parent module into the current module's scope.
+> - This allows you to use those items without having to prefix them with `super::`.
+
 ---
 
 
