@@ -43,6 +43,14 @@
 - examples of deps can be run directly, crates seem to be self sufficient
 - binary files for the cargo-edit commands (such as cargo-add, cargo-rm, and cargo-upgrade) are installed in the bin directory under the default Cargo home directory.
 ```bash
+# create new project
+cargo new my_binary_project --bin
+cd my_binary_project
+cargo run
+
+# install all deps
+cargo build
+
 cargo add serde --features derive  # list features via crate's Cargo.toml
 
 cargo tree
