@@ -30,9 +30,9 @@
 
 # Operations .......................................................................................
 [terraform.pptx]($HOME/dev/s/private/vimwiki/help/terraform.pptx)
-
-- environment variables `TF_VAR_xxx`, hardcode in `*.tf` (i.e. `TF_VAR_ENVIRONMNET_PREFIX`)
 ```bash
+TF_VAR_lambda_image_uri=(aws --profile fbs-int-userfull lambda get-function --function-name fbs-csf-test | jq -r '.Code.ImageUri') make apply
+
 tf plan -var-file=../terraform.tfvars
 
 tf init  # initializes .terraform and loads providers, modules and installs backend
