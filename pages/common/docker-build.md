@@ -41,6 +41,9 @@
 - separate layer is created any time files are added to the container image. This includes FROM, RUN, ADD, and COPY
 `--cache-from` is used to specify one or more images to use as a cache source to look for existing layers that can be reused, rather than recreating them
 ```bash
+docker build --platform=linux/amd64 -t pcv .
+docker run --platform linux/amd64 -v "$PWD:/app" --entrypoint bash -it pcv
+
 docker buildx build --platform linux/amd64 -t your-image-name:tag .  # build for intel
 
 docker build --no-cache --progress=plain --build-arg TWINE_USERNAME=qqe4m00 --build-arg TWINE_PASSWORD="$TWINE_PASSWORD"  --build-arg NO_PROXY='localhost,127.0.0.*,10.*,192.168.*,kubernetes.docker.internal,*.bmwgroup.net' -t poi .
