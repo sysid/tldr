@@ -26,3 +26,16 @@
 - Stop reading after reading specified amount of data, rate limit to 1K/s:
 
 `pv -L 1K --stop-at --size {{maximum_file_size_to_be_read}}`
+
+
+# Custom ...........................................................................................
+```bash
+curl http://localhost:8000/stream | pv --line-mode --average-rate > /dev/null
+
+# Creating a progress bar with the copy command
+pv history.log > $HOME/Documents/history.log
+
+pv history.log | zip>$HOME/Documents/history.zip
+
+tar -czf - ./Documents/ | (pv -p --timer --rate --bytes > backup.tgz)
+```
