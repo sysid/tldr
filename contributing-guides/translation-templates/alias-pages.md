@@ -409,7 +409,15 @@ Not translated yet.
 
 ### sr
 
-Not translated yet.
+```markdown
+# example
+
+> Ова наредба је псеудоним `example`.
+
+- Погледајте документацију за оригиналну команду:
+
+`tldr example`
+```
 
 ---
 
@@ -485,7 +493,15 @@ Not translated yet.
 
 ### uz
 
-Not translated yet.
+```markdown
+# example
+
+> Ushbu buyruq taxallus `example`.
+
+- Asl buyruq uchun hujjatlarni ko'rish:
+
+`tldr example`
+```
 
 ---
 
