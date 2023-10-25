@@ -98,21 +98,6 @@ gh config set pager "less -FX"
 
 ```
 
-## Config, Authentication
-- configure authentication: [auth](git.md#Authentication)
-- ~/.config/gh/config.yml
-```bash
-# Authentication
-echo xxx | gh auth login --hostname atc-github.azure.cloud.bmw --with-token
-gh auth status
-
-# Alternative
-GH_ENTERPRISE_TOKEN=xxx GH_HOST=atc-github.azure.cloud.bmw gh repo list e4m
-```
-### Gotcha
-- git authentication working with MacOS secring plugin, but not gh
-- Token must be visible in environment
-
 ## Alias
 [Extending the GitHub CLI](https://www.aaron-powell.com/posts/2021-01-22-extending-the-github-cli/)
 [Scripting with GitHub CLI | The GitHub Blog](https://github.blog/2021-03-11-scripting-with-github-cli/)
