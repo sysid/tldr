@@ -1,4 +1,10 @@
 # helm
+<<<<<<< HEAD
+=======
+
+> A package manager for Kubernetes.
+> Some subcommands such as `install` have their own usage documentation.
+>>>>>>> 0fddee227248777cf3ac5b14fe5cc9b22649d2b4
 > More information: <https://helm.sh/>.
 
 - Create a helm chart:
