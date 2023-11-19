@@ -94,6 +94,9 @@ Now, when you switch branches, the post-checkout Git hook will run, and it will 
 ```bash
 pre-commit run decrypt-env-file --verbose --hook-stage post-checkout
 ```
+### pyprojet
+[Allow pyproject.toml to define pre-commit config · Issue #1165 · pre-commit/pre-commit · GitHub](https://github.com/pre-commit/pre-commit/issues/1165)
+- not planned!!
 
 
 ## Development/Testing
