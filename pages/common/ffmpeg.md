@@ -66,7 +66,13 @@ ffmpeg -i input.mp4 -vf scale=1280:720 -preset slow -crf 18 output.mp4
 ffmpeg -i input.mov -vf "scale=iw/2:ih/2" output.mov
 ffmpeg -i input.mov -vf "scale=iw/2:ih/2:force_original_aspect_ratio=decrease" -c:a copy output.mov
 ffmpeg -i input.mov -vf "scale=iw/2:-2" output.mov
+```
 
+## Convert OSX heic format
+can depend on how FFmpeg was compiled and which libraries were included. Not all builds of FFmpeg support HEIC due to licensing and patent issues 
+```bash
+ffmpeg -i input.heic output.png
+ffmpeg -i input.heic output.jpg  # -q:v 2 for high quality (31: low), no alpha transparency
 ```
 
 ## Record on OSX
