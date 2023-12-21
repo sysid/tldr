@@ -295,8 +295,19 @@ fn main() {
 ├── lib.rs
 └── main.rs
 ```
-Explain it.
+Explain it (and `mod` vs `use`).
 > library crate with an associated binary crate
+> ### `mod` Keyword
+> - **Purpose**: The `mod` keyword is used to declare a new module, the primary way to organize code into namespaces
+> - **Usage**:
+>   - When you declare a module with `mod`, you're effectively creating a new namespace.
+>   - This can be done either inline with `mod module_name { /* code */ }` or by linking to another file with the same name as the module (e.g., `mod module_name;` will link to `module_name.rs` or `module_name/mod.rs`).
+>
+> ### `use` Keyword
+> - **Purpose**: The `use` keyword is used to bring paths from a module into scope, making it easier to refer to items without using the full path.
+> - **Usage**:
+>   - It simplifies code and reduces repetition. For instance, if you have a module `math` with a function `add`, instead of always referring to it as `math::add`, you can bring it into scope at the top of your file with `use math::add;` and then simply call `add()` in your code.
+>   - The `use` keyword can also be used to bring in just a module, a specific function, or even use renaming for convenience.
 >
 > ### lib.rs:
 > - This is the entry point for a Rust library crate.
@@ -304,7 +315,7 @@ Explain it.
 > - You can also `mod` other files to bring their contents into scope.
 >
 > ### confguard.rs:
-> - moodule file. Inside lib.rs, you find a line `mod confguard;`, which would bring the contents of confguard.rs into scope.
+> - module file. Inside lib.rs, you find a line `mod confguard;`, which would bring the contents of confguard.rs into scope.
 > - definitions inside confguard.rs are scoped under the confguard module. would access `foo` as `confguard::foo` from other modules or crates (assuming it's public).
 >
 > ### confguard/:
@@ -323,6 +334,32 @@ Explain it.
 > mod tests;
 > use tests::some_function;
 > ```
+
+<!--ID:1703152115449-->
+1. Where does Rust look for modules?
+> ### Root File (main.rs or lib.rs), entrypoint
+> - **Main Crate**: For a binary crate, the root file is typically `main.rs`.
+> - **Library Crate**: For a library crate, it's usually `lib.rs`.
+> - These root files serve as the entry points for compiling the crate and can define modules or reference other files as modules.
+>
+> ### Module Declaration and File System
+> 1. **Inline Modules**:
+>    - Defined directly in the file using the `mod` keyword followed by a block of code.
+>    - Example: `mod mymodule { /* module code */ }` within `main.rs` or `lib.rs`.
+>
+> 2. **File-Based Modules**:
+>    - When you declare a module with `mod module_name;` (without an inline block), Rust looks for the module's code in a separate file.
+>    - The compiler looks for a file named `module_name.rs` or a directory named `module_name` with a `mod.rs` file inside it.
+>    - This file or directory should be in the same directory as the file that contains the `mod module_name;` declaration.
+>
+> ### Nested Modules
+> - For nested modules, the path extends in the file system. For example, if you declare `mod nested;` inside `module_name.rs`, Rust looks for `module_name/nested.rs` or `module_name/nested/mod.rs`.
+>
+> ### Example Structure
+> - `src/main.rs` or `src/lib.rs` (root)
+>    - `mod utils;` (looks for `src/utils.rs` or `src/utils/mod.rs`)
+>    - Inside `utils.rs`:
+>      - `mod helpers;` (looks for `src/utils/helpers.rs` or `src/utils/helpers/mod.rs`)
 
 ---
 
