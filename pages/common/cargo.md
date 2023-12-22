@@ -166,6 +166,17 @@ Rust code is organized on two levels:
 - This makes it very easy to make two pieces of code not depend on each other (non-dependencies are the essence of modularity): just put them in separate crates.
 - During code review, only changes to Cargo.toml need to be monitored carefully.
 
+---
+1. Explain `main.rs vs lib.rs`:
+> structure separates the `main.rs` and `lib.rs` files, with `main.rs` being the entry point for binary applications and `lib.rs` serving as the main module for library code.
+> `lib.rs` contains the library code (functions, structs, traits, etc.) that can be reused, while `main.rs` typically contains the application-specific logic.
+>
+> If you find yourself needing to import structs from `main.rs` into `lib.rs`, it often indicates a need to restructure your code.
+> 1. **Move Shared Code to `lib.rs`**: Place any structs, functions, or traits that need to be shared between `main.rs` and other parts of your application in `lib.rs`.
+> 2. **Import from `lib.rs` to `main.rs`**: In `main.rs`, you can import and use these shared items from your library.
+
+---
+
 
 ## Workspace
 - is a set of packages that share the same `Cargo.lock` and output directory.
@@ -297,16 +308,12 @@ fn main() {
 ```
 Explain it (and `mod` vs `use`).
 > library crate with an associated binary crate
-> ### `mod` Keyword
-> - **Purpose**: The `mod` keyword is used to declare a new module, the primary way to organize code into namespaces
-> - **Usage**:
->   - When you declare a module with `mod`, you're effectively creating a new namespace.
+> ### `mod`: define/bring modules into scope
+> - **Purpose**: The `mod` keyword is used to declare a new module: namespaces
 >   - This can be done either inline with `mod module_name { /* code */ }` or by linking to another file with the same name as the module (e.g., `mod module_name;` will link to `module_name.rs` or `module_name/mod.rs`).
 >
-> ### `use` Keyword
-> - **Purpose**: The `use` keyword is used to bring paths from a module into scope, making it easier to refer to items without using the full path.
-> - **Usage**:
->   - It simplifies code and reduces repetition. For instance, if you have a module `math` with a function `add`, instead of always referring to it as `math::add`, you can bring it into scope at the top of your file with `use math::add;` and then simply call `add()` in your code.
+> ### `use`: abbreviate path
+>   - simplifies code. instead of referring to `math::add`, you can bring it into scope at the top of your file with `use math::add;` and then simply call `add()` in your code.
 >   - The `use` keyword can also be used to bring in just a module, a specific function, or even use renaming for convenience.
 >
 > ### lib.rs:
