@@ -167,6 +167,7 @@ Rust code is organized on two levels:
 - During code review, only changes to Cargo.toml need to be monitored carefully.
 
 ---
+<!--ID:1703356138638-->
 1. Explain `main.rs vs lib.rs`:
 > structure separates the `main.rs` and `lib.rs` files, with `main.rs` being the entry point for binary applications and `lib.rs` serving as the main module for library code.
 > `lib.rs` contains the library code (functions, structs, traits, etc.) that can be reused, while `main.rs` typically contains the application-specific logic.
