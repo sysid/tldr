@@ -66,6 +66,18 @@ ffmpeg -i input.mp4 -vf scale=1280:720 -preset slow -crf 18 output.mp4
 ffmpeg -i input.mov -vf "scale=iw/2:ih/2" output.mov
 ffmpeg -i input.mov -vf "scale=iw/2:ih/2:force_original_aspect_ratio=decrease" -c:a copy output.mov
 ffmpeg -i input.mov -vf "scale=iw/2:-2" output.mov
+
+```
+
+## Image Resizeing
+key to preserving quality while resampling (resizing) is to use high-quality scaling algorithms and to avoid unnecessary re-encoding of the image more than needed. 
+
+`-vf "scale=width:height"`: Applies video filter to scale the image. -1 to keep the aspect ratio
+`-q:v 2`: Sets quality for JPEG. The scale is from 2 (best quality) to 31 (worst quality).
+```bash
+ffmpeg -i input.jpg -vf "scale=width:height" -q:v 2 output.jpg
+# resize jpg: quality 2(best)-31
+ffmpeg -i IMG_1471.jpg -vf "scale=1200:-1" -q:v 5 x.jpg
 ```
 
 ## Convert OSX heic format
