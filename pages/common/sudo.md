@@ -43,4 +43,8 @@
 # add user without password
 EDITOR=vim visudo
 username     ALL=(ALL) NOPASSWD:ALL
+
+sudo -i  # switch to root
 ```
+
+
