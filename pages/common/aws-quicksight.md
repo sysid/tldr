@@ -109,6 +109,7 @@ Authorisierung über ADGruppe via CDH
 # Resources ........................................................................................
 [How to create a data source using Terraform - #3 by larry - Question & Answer - Amazon QuickSight Community](https://community.amazonquicksight.com/t/how-to-create-a-data-source-using-terraform/11007/3)
 [Terraform Registry](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/quicksight_vpc_connection)
+[Latest Demos topics - Amazon QuickSight Community](https://community.amazonquicksight.com/c/learning-center/developer/demos/38)
 
 
 # Scratch
