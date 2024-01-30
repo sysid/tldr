@@ -12,10 +12,6 @@
 
 `aws configure sso`
 
-- See help text for the AWS command:
-
-`aws {{command}} help`
-
 - Get the caller identity (used to troubleshoot permissions):
 
 `aws sts get-caller-identity`
@@ -36,6 +32,7 @@
 
 `aws dynamodb update-table --generate-cli-skeleton`
 
+<<<<<<< HEAD
 
 ```bash
 aws configure list-profiles  # show availabe named profiles
@@ -62,3 +59,8 @@ alias k-playpen='kubectl config use-context e4m-playpen'
 alias k-prod='kubectl config use-context e4m-prod'
 alias kcn='kubectl config set-context $(kubectl config current-context) --namespace'
 ```
+=======
+- Display help for a specific command:
+
+`aws {{command}} help`
+>>>>>>> 46a054215a8f11a8256941e42082b97a25d1bcb0

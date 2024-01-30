@@ -9,10 +9,6 @@
 
 `mkdir -p ~/.config/nix; echo 'experimental-features = nix-command flakes' > ~/.config/nix/nix.conf`
 
-- Display help for the `nix` subcommand:
-
-`nix help {{subcommand}}`
-
 - Search for a package in nixpkgs via its name or description:
 
 `nix search nixpkgs {{search_term}}`
@@ -33,7 +29,13 @@
 
 `nix repl`
 
+<<<<<<< HEAD
 
 # Custom ...........................................................................................
 [Welcome to nix.dev — nix.dev  documentation](https://nix.dev/)
 [Nix Pills | Nix & NixOS](https://nixos.org/guides/nix-pills/)
+=======
+- Display help for a specific subcommand:
+
+`nix help {{subcommand}}`
+>>>>>>> 46a054215a8f11a8256941e42082b97a25d1bcb0
