@@ -11,9 +11,9 @@
 
 `docker network create --driver {{driver_name}} {{network_name}}`
 
-- Display detailed information of a space-separated list of networks:
+- Display detailed information about one or more networks:
 
-`docker network inspect {{network_name}}`
+`docker network inspect {{network_name1 network_name2 ...}}`
 
 - Connect a container to a network using a name or ID:
 
@@ -27,8 +27,9 @@
 
 `docker network prune`
 
-- Remove a space-separated list of unused networks:
+- Remove one or more unused networks:
 
+<<<<<<< HEAD
 `docker network rm {{network_name}}`
 
 
@@ -83,3 +84,6 @@ networks:
 # provide a DNS server to the container
 docker run --dns 192.10.0.2 busybox nslookup google.com
 ```
+=======
+`docker network rm {{network_name1 network_name2 ...}}`
+>>>>>>> e7d5609dd3df37e241ace0e204d8393fdbd0de49
