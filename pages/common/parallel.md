@@ -27,6 +27,7 @@
 
 `parallel -S {{machine1}},{{machine2}} {{command}} ::: {{arg1}} {{arg2}}`
 
+<<<<<<< HEAD
 
 # Custom ...........................................................................................
 achieves parallel execution by dividing the input data into smaller chunks and then executing the specified command with each chunk in a separate process or on a separate machine.
@@ -55,3 +56,12 @@ GNU Parallel takes care of starting the processes, passing the input data, and c
 You can control the order in which the output is combined, either preserving the original input order or allowing outputs to be combined as they become available.
 
 GNU Parallel achieves parallel execution by utilizing multiple cores or machines, splitting the input into manageable chunks, and efficiently managing the execution of jobs. This allows for a significant speedup in many situations where tasks can be processed independently and in parallel.
+=======
+- Download 4 files simultaneously from a text file containing links showing progress:
+
+`parallel -j4 --bar --eta wget -q {} :::: {{path/to/links.txt}}`
+
+- Print the jobs which `parallel` is running in `stderr`:
+
+`parallel -t {{command}} ::: {{args}}`
+>>>>>>> ec7be25438ea07b36254bfdfce5c1fa808a43e71
