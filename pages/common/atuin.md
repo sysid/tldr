@@ -27,3 +27,7 @@
 - Sync history with the sync server:
 
 `atuin sync`
+
+# Custom ...........................................................................................
+- 2x ESC + ctrl-r gives normal history search
+- configuration files, stored in ~/.config/atuin/. We store data in ~/.local/share/atuin
