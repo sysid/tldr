@@ -28,6 +28,7 @@
 
 `poetry run {{command}}`
 
+<<<<<<< HEAD
 
 
 # Custom ...........................................................................................
@@ -58,3 +59,12 @@ vim "/Users/Q187392/Library/Application Support/pypoetry/config.toml"
 - List all poetry subcommands:
 
 `poetry list`
+=======
+- Bump the version of the project in `pyproject.toml`:
+
+`poetry version {{patch|minor|major|prepatch|preminor|premajor|prerelease}}`
+
+- Spawn a shell within the project's virtual environment:
+
+`poetry shell`
+>>>>>>> c76ceec8a6c76763d4a2542b5b4d5e86cfe315d0
