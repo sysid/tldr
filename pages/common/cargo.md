@@ -473,6 +473,17 @@ impl MyStruct {
 ## Features of a Crate
 - only reliable way to explore available features of a crate: read Cargo.toml on Github
 
+---
+1. List features of crate:
+> ```bash
+> cargo add --dry-run <crate>
+>
+> cargo install cargo-information
+> cargo info --help
+> ```
+
+---
+
 
 
 ## Visibility
