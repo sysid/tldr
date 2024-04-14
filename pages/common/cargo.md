@@ -115,6 +115,35 @@ cargo upgrade  # update Cargo.toml
 # upgrade Cargo.lock
 cargo update
 ```
+## Update Process
+### 1. Check for Outdated Dependencies
+```bash
+cargo install cargo-outdated
+cargo outdated
+
+🐍 v3.11.4 (rs-env-3.11) 🦀 v1.76.0  main ✗ ➜  cargo outdated
+Name                                              Project                        Compat   Latest   Kind         Platform
+----                                              -------                        ------   ------   ----         --------
+aho-corasick->memchr                              2.6.2                          2.7.2    2.7.2    Normal       ---
+aho-corasick->memchr                              2.6.2                          2.7.2    Removed  Normal       ---
+anstream->anstyle-wincon                          2.1.0                          3.0.2    3.0.2    Normal       cfg(windows)
+chrono->js-sys                                    0.3.64                         0.3.69   0.3.69   Normal       cfg(all(target_arch = "wasm32", not(any(target_os = "emscripten", target_os = "wasi"))))
+clap                                              4.4.2                          4.5.4    4.5.4    Normal       ---
+```
+Each line of the output describes a dependency, potentially nested, within project
+- **Name**: indicates the dependency path, with `->` used to show a chain of dependencies. For example, `aho-corasick->memchr` means that `memchr` is a dependency of `aho-corasick`
+- **Compat**: shows latest version that is compatible with the constraints specified in `Cargo.toml`
+- **Platform**: This specifies platform-specific dependencies. For example, `cfg(windows)` means the dependency is only used when compiling for Windows platforms.
+- **"Removed" in Compat/Latest**: indicates that the dependency no longer exists in newer versions
+
+### 2. Update Dependencies
+- **Manual Update**: Edit the `Cargo.toml` file and change the versions of the dependencies to the versions you want (usually the latest ones shown by `cargo-outdated`).
+- **Automatic Update**: Use the `cargo update` command to automatically update the `Cargo.lock` file to the latest compatible versions as allowed by your `Cargo.toml` constraints.
+For major version updates (which are not covered by `cargo update` because they potentially include breaking changes), you need to manually edit `Cargo.toml`. Change the version numbers to the new major versions, then run:
+```bash
+cargo update
+```
+
 
 
 # Structure ........................................................................................

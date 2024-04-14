@@ -30,3 +30,9 @@
 - Display supported languages and associated file extensions:
 
 `delta --list-languages`
+
+
+# Custom ...........................................................................................
+
+## Color
+- set terminal Profile | Color palette blue: 1e45fb
