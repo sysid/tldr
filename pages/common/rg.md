@@ -35,3 +35,42 @@
 - Search a literal string pattern:
 
 `rg --fixed-strings -- {{string}}`
+
+
+# Custom ..........................................................................................
+https://github.com/BurntSushi/ripgrep
+
+ag, ripgrep, grep
+
+rg -uuu                 search all ()== grep -a -r)
+rg -i                   ignore case
+rg -v                   invert
+rg -C2                  2 lines before/after
+
+rg foo -g '*.html'      glob files
+rg foo -g '!*.html'     inverse glob files
+
+rg --type-list          list filetypes
+rg foo -thtml           search filetype
+rg foo -Thtml           inverse search filetype
+```sh
+rg --type-list
+rg -tsh
+# sort after modified data
+rg --column --line-number --no-heading --color=always --smart-case --sortr modified -- '^- \[[ ]\] .+'
+
+# grep todos
+rg --column --line-number --no-heading --color=always --smart-case --sortr modified -- '^- \[[ ]\] .+' ~/vimwiki | egrep -v '{noshow}|complete' | sort -k4 -r
+
+# grep two tags with AND
+rg ':xxx[:]{0,1}.*e4m:|:e4m[:]{0,1}.*xxx:'
+```
+
+## Gotcha
+use `-uu` to include hidden files and ignore `.gitignore` (e.g. pyo-pool)
+
+
+
+# [locate](/help/ubuntu.md#search), [mdfind](/help/macos.md#search), [find](/help/bash.md#search)
+
+
