@@ -32,15 +32,19 @@
 
 `jupyter lab`
 
+
+
 # Custom ...........................................................................................
 ## Installation/Configuration
-```bash
-pipenv install jupyter  # jupyter 1.0 classic
+[The Best Way to Install Jupyter Lab (it's Pipx) | Sam Edwardes](https://samedwardes.com/2022/10/23/best-jupyter-lab-install/#step-2-install-jupyter-lab-with-pipx)
 
-# old:
-pip install jupyter_contrib_nbextensions
-jupyter contrib nbextension install --sys-prefix
-jupyter nbextension enable varInspector/main
+```bash
+## Global
+pipx install notebook --include-deps
+
+## Charm
+pdm add notebook
+pdm add ipywidgets
 
 ## Configuration
 jupyter notebook --generate-config  # create jupyter_notebook_config.py ~/.jupyter/.
@@ -111,9 +115,3 @@ Shift ESC:  blue mode
 CMD 1/2:    switch code/markdown
 ```
 
-
-# JupyterLab
-- next-generation user interface including notebooks.
-- has modular structure, where you can open several notebooks or files (e.g. HTML, Text, Markdowns etc) as tabs in the same window.
-- offers more of an IDE-like experience.
-- JupyterLab is not friendly for displaying data visualizations, e.g. plotly. Reason I switched to Jupyter notebook ??
