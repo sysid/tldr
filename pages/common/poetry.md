@@ -47,6 +47,8 @@
 
 
 # Custom ...........................................................................................
+The poetry install command by default installs both runtime and development dependencies.
+
 ```bash
 poetry config --list
 poetry install
@@ -64,6 +66,7 @@ $XDG_CONFIG_HOME. That means, by default ~/.config/pypoetry.
 pipx poetry
 poetry completions bash > $(brew --prefix)/etc/bash_completion.d/poetry.bash-completion
 
+# Local .venv
 poetry config virtualenvs.in-project true
 vim "/Users/Q187392/Library/Application Support/pypoetry/config.toml"
 ```
