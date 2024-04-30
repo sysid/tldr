@@ -28,7 +28,22 @@
 
 `poetry run {{command}}`
 
-<<<<<<< HEAD
+
+- Bump the minor version of the project in `pyproject.toml`:
+
+`poetry version minor`
+
+- List all poetry subcommands:
+
+`poetry list`
+
+- Bump the version of the project in `pyproject.toml`:
+
+`poetry version {{patch|minor|major|prepatch|preminor|premajor|prerelease}}`
+
+- Spawn a shell within the project's virtual environment:
+
+`poetry shell`
 
 
 # Custom ...........................................................................................
@@ -52,19 +67,3 @@ poetry completions bash > $(brew --prefix)/etc/bash_completion.d/poetry.bash-com
 poetry config virtualenvs.in-project true
 vim "/Users/Q187392/Library/Application Support/pypoetry/config.toml"
 ```
-- Bump the minor version of the project in `pyproject.toml`:
-
-`poetry version minor`
-
-- List all poetry subcommands:
-
-`poetry list`
-=======
-- Bump the version of the project in `pyproject.toml`:
-
-`poetry version {{patch|minor|major|prepatch|preminor|premajor|prerelease}}`
-
-- Spawn a shell within the project's virtual environment:
-
-`poetry shell`
->>>>>>> c76ceec8a6c76763d4a2542b5b4d5e86cfe315d0
