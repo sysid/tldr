@@ -40,6 +40,18 @@
 # Custom ....................................................................................................
 [The Missing Package Manager for macOS (or Linux) — Homebrew](https://brew.sh/)
 
+## Install Specific Version
+[homebrew - How do you specify a version using brew cask? - Stack Overflow](https://stackoverflow.com/a/66477916/8212129)
+1. Go to the Homebrew Cask search page: https://formulae.brew.sh/cask/
+2. Click `Cask code` link
+3. On Github click `History` button
+4. Find the version you need by reading the commit messages and view the raw file. Confirm the version variable (normally on line 2) is the version you need.
+5. Click on the `name of the commit`, then three dots and select `View file`
+6. download the file locally
+7. When downloaded, go to download directory cd Downloads/
+8. Finally run brew install --cask <FORMULA_NAME>.rb
+
+
 ## Bundles
 [📦 Bundler for non-Ruby dependencies from Homebrew, Homebrew Cask and the Mac App Store.](https://github.com/Homebrew/homebrew-bundle#usage)
 ```bash
@@ -70,3 +82,4 @@ brew install --cask keepassxc
 [GitHub - whalebrew/whalebrew: Homebrew, but with Docker images](https://github.com/whalebrew/whalebrew)
 [GitHub - mas-cli/mas: Mac App Store command line interface](https://github.com/mas-cli/mas)
 [How To Install and Use Homebrew on Linux | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-homebrew-on-linux)
+
