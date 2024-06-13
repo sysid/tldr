@@ -19,10 +19,6 @@
 
 `kubectl logs --follow {{pod_name}}`
 
-- Stream logs for a specified container in a pod:
-
-`kubectl logs --follow --container {{container_name}} {{pod_name}}`
-
 - Show pod logs newer than a relative time like `10s`, `5m`, or `1h`:
 
 `kubectl logs --since={{relative_time}} {{pod_name}}`
@@ -31,6 +27,7 @@
 
 `kubectl logs --tail={{10}} {{pod_name}}`
 
+<<<<<<< HEAD
 # Custom  ...........................................................................................
 ```bash
 # stream/tail all logs
@@ -39,3 +36,9 @@ k logs -f -l app=gldpm-backend --all-containers
 k logs --tail 100000 -l app=poi-fb-backend-prod --all-containers
 k logs -f -l app=gldpm-backend-prod -c gldpm-backend-prod  # one container
 ```
+||||||| f1d0051ee
+=======
+- Show all pod logs for a given deployment:
+
+`kubectl logs deployment/{{deployment_name}}`
+>>>>>>> 230bfdba8d22fb1171dafa36ee7756735bea9d7a
