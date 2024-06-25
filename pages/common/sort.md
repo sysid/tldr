@@ -23,6 +23,10 @@
 
 `sort --field-separator={{:}} --key={{3n}} {{/etc/passwd}}`
 
+- As above, but when items in the 3rd field are equal, sort by the 4th field by numbers with exponents:
+
+`sort -t {{:}} -k {{3,3n}} -k {{4,4g}} {{/etc/passwd}}`
+
 - Sort a file preserving only unique lines:
 
 `sort --unique {{path/to/file}}`
@@ -30,6 +34,7 @@
 - Sort a file, printing the output to the specified output file (can be used to sort a file in-place):
 
 `sort --output={{path/to/file}} {{path/to/file}}`
+<<<<<<< HEAD
 
 - Sort numbers with exponents:
 
@@ -40,3 +45,10 @@
 ```bash
 bbt 2>&1 | sort --field-separator ':' -k 2
 ```
+||||||| ff654213b
+
+- Sort numbers with exponents:
+
+`sort --general-numeric-sort {{path/to/file}}`
+=======
+>>>>>>> f3d405a1e3567e83412bdaf76f893323d4f165a8
