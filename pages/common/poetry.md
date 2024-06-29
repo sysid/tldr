@@ -47,14 +47,15 @@
 
 
 # Custom ...........................................................................................
-The poetry install command by default installs both runtime and development dependencies.
-
+Installs by default both runtime and development dependencies.
 ```bash
 poetry config --list
 poetry install
 
 poetry env info -p  # show virtualenv path
 
+# use --with several times to include multiple groups
+poetry install --with dev --with docs
 ```
 
 ## Installation, Config
