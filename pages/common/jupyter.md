@@ -43,8 +43,13 @@
 pipx install notebook --include-deps
 
 ## Charm
+poetry add -G jupyter jupyter
+poetry add -G jupyter jupyterlab_vim  # looks like plugins are just inatlled with pip
+
 pdm add notebook
 pdm add ipywidgets
+
+jupyter labextension list
 
 ## Configuration
 jupyter notebook --generate-config  # create jupyter_notebook_config.py ~/.jupyter/.
