@@ -38,6 +38,33 @@
 ## Installation/Configuration
 [The Best Way to Install Jupyter Lab (it's Pipx) | Sam Edwardes](https://samedwardes.com/2022/10/23/best-jupyter-lab-install/#step-2-install-jupyter-lab-with-pipx)
 
+## Shortcuts Notebook
+```
+-/M:        split/merge cell
+Shift ESC:  blue mode
+CMD 1/2:    switch code/markdown
+```
+## Shortcuts Notebook Pycharm
+[Create and edit Jupyter notebooks | PyCharm Documentation](https://www.jetbrains.com/help/pycharm/editing-jupyter-notebook-files.html)
+
+Ctrl+Enter                                   Run Cell
+Shift+­Enter                                 Run Cell and Select Below
+Ctrl+A­lt+­Shi­ft+­Enter                     Run All
+Alt+Sh­ift­+EnteDebug                        Cell
+
+Alt+Sh­ift+A                                 Insert Cell Above
+Alt+Sh­ift+B                                 Insert Cell Below
+A                                            Insert Cell Above
+B                                            Insert Cell Below
+
+Shift+jk                                     select multi
+M                                            merge selected
+Cmd+Shift                                    -
+
+
+## Pycharm Installation
+- vim binding installation via pip, browser then ok, but IDE has different cell shortcuts
+
 ```bash
 ## Global
 pipx install notebook --include-deps
@@ -57,8 +84,8 @@ jupyter notebook --generate-config  # create jupyter_notebook_config.py ~/.jupyt
 ```
 
 ## Operations
-```
 - magics and bash calls return python variables
+```bash
 %env VAR=XXX  # (except PATH)
 ?str.replace()  # get help
 
@@ -71,7 +98,7 @@ for name in names[:5]:
     display(Image('../images/ml_demonstrations/' + name, width=100))
 ```
 ## Magics
-```
+```bash
 %lsmagic
 
 # quick reference guide
@@ -111,12 +138,5 @@ $ source projectname/bin/activate
 # remove kernel
 jupyter kernelspec list
 jupyter kernelspec uninstall powerpool
-```
-
-## Shortcuts
-```
--/M:        split/merge cell
-Shift ESC:  blue mode
-CMD 1/2:    switch code/markdown
 ```
 
