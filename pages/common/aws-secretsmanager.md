@@ -30,3 +30,11 @@
 - Rotate the secret automatically every 30 days using a Lambda function:
 
 `aws secretsmanager rotate-secret --secret-id {{name_or_arn}} --rotation-lambda-arn {{arn_of_lambda_function}} --rotation-rules AutomaticallyAfterDays={{30}}`
+
+
+
+# Custom ...........................................................................................
+```bash
+# overwrite retention policy
+aws --profile <profile> secretsmanager delete-secret --secret-id <secret-id> --force-delete-without-recovery
+```
