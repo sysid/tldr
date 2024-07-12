@@ -52,6 +52,8 @@ Shift+­Enter                                 Run Cell and Select Below
 Ctrl+A­lt+­Shi­ft+­Enter                     Run All
 Alt+Sh­ift­+EnteDebug                        Cell
 
+O                                             Toggle Output cell
+
 Alt+Sh­ift+A                                 Insert Cell Above
 Alt+Sh­ift+B                                 Insert Cell Below
 A                                            Insert Cell Above
