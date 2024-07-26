@@ -31,8 +31,9 @@
 
 `find {{root_path}} -daystart -mtime {{-1}} -exec {{tar -cvf archive.tar}} {} \+`
 
-- Find empty (0 byte) files and delete them:
+- Find empty files (0 byte) or directories and delete them verbosely:
 
+<<<<<<< HEAD
 `find {{root_path}} -type {{f}} -empty -delete`
 
 
@@ -65,3 +66,8 @@ find -L /Users/q187392/dev/s/public/ -samefile ref-file
 # delete line recursively: sed edit direct without backup
 find . -type f -name ".envrc" -exec sed -i '/source ~\/dev\/crypt\/dot_direnv_creds/d' {} \;
 ```
+||||||| b8fa25ce4
+`find {{root_path}} -type {{f}} -empty -delete`
+=======
+`find {{root_path}} -type {{f|d}} -empty -delete -print`
+>>>>>>> d18350312d609b0e40301bf2b6316238204d21ec
