@@ -762,3 +762,142 @@ travis-ci = { repository = "your-username/my-project" }
 ## Caching and Accelartor
 [A random assortment of Rust notes – Brian Kung](https://briankung.dev/2023/07/16/rust-notes/)
 [GitHub - mozilla/sccache: sccache is ccache with cloud storage](https://github.com/mozilla/sccache)
+
+## Cross compilation, target triple
+specifies the platform for which your Rust code is compiled. It includes the architecture, vendor, operating system, and optionally the ABI
+```
+<architecture>-<vendor>-<os>-<abi>
+```
+- **`<architecture>`**: This specifies the CPU architecture, such as `x86_64`, `aarch64`, `arm`, etc.
+- **`<vendor>`**: This specifies the vendor, which is often `unknown` for many target triples.
+- **`<os>`**: This specifies the operating system, such as `linux`, `windows`, `darwin` (macOS), etc.
+- **`<abi>`**: This is optional and specifies the Application Binary Interface, such as `gnu`, `msvc`, or `musl`.
+
+### Examples of Target Triples
+
+Here are some examples of common target triples:
+
+- **x86_64-unknown-linux-gnu**: A 64-bit Linux system using the GNU ABI.
+- **x86_64-apple-darwin**: A 64-bit macOS system.
+- **x86_64-pc-windows-msvc**: A 64-bit Windows system using the Microsoft Visual C++ ABI.
+- **aarch64-unknown-linux-gnu**: A 64-bit ARM Linux system using the GNU ABI.
+
+1. **Via Cargo Command Line:**
+   ```bash
+   cargo build --target x86_64-unknown-linux-gnu
+   ```
+
+2. **In Your `Cargo.toml`:**
+   You can set a default target triple for your project by adding it to your `Cargo.toml`:
+   ```toml
+   [build]
+   target = "x86_64-unknown-linux-gnu"
+   ```
+
+3. **Via Environment Variable:**
+   You can set the `CARGO_BUILD_TARGET` environment variable:
+   ```bash
+   export CARGO_BUILD_TARGET=x86_64-unknown-linux-gnu
+   cargo build
+   ```
+
+### How to List Available Target Triples?
+```bash
+rustc --print target-list
+```
+
+## Recipie
+### 1. **Set Up Your Build Environment**
+
+#### Install Required Tools
+```bash
+# Install Rust and Maturin
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+pip install maturin
+```
+#### Install Cross-Compilation Targets
+add appropriate Rust targets.
+```bash
+rustup target add x86_64-unknown-linux-gnu
+rustup target add x86_64-pc-windows-gnu
+rustup target add x86_64-apple-darwin
+```
+
+### 2. **Cross-Compile Your Rust Extension**
+#### Build for Linux
+```bash
+maturin build --release --target x86_64-unknown-linux-gnu
+```
+#### Build for macOS
+```bash
+maturin build --release --target x86_64-apple-darwin
+```
+#### Build for Windows
+If you're on Linux or macOS and want to cross-compile for Windows:
+```bash
+maturin build --release --target x86_64-pc-windows-gnu
+```
+
+### 3. **Build Wheels for Multiple Platforms, CI/CD**
+#### GitHub Actions Workflow
+Create a `.github/workflows/release.yml` file in your repository:
+```yaml
+name: Build and publish wheels
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: [3.7, 3.8, 3.9, 3.10]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: pip install maturin
+
+      - name: Add rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.os == 'windows-latest' && 'x86_64-pc-windows-gnu' || 'x86_64-unknown-linux-gnu' }}
+
+      - name: Build wheel
+        run: maturin build --release --target ${{ matrix.os == 'windows-latest' && 'x86_64-pc-windows-gnu' || 'x86_64-unknown-linux-gnu' }}
+
+      - name: Upload wheel
+        uses: actions/upload-artifact@v2
+        with:
+          name: wheel
+          path: ./target/wheels/*.whl
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: pip install twine
+
+      - name: Upload to PyPI
+        run: twine upload target/wheels/*.whl
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+```
+
+### 4. **Publish Wheels**
+#### Manual Publishing
+```bash
+pip install twine
+twine upload target/wheels/*.whl
+```
