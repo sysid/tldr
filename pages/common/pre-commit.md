@@ -46,6 +46,11 @@ pre-commit run --all-files
 pre-commit run --files YOUR_FILENAME
 ```
 
+## autoupdate !!!
+```bash
+pre-commit autoupdate
+```
+
 
 ## post-commit
 pre-commit framework does not automatically run hooks in the post-checkout stage when switching branches.
