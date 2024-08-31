@@ -113,7 +113,7 @@ cargo outdated
 
 # upgrade Cargo.toml
 cargo install cargo-edit
-cargo upgrade  # update Cargo.toml
+cargo upgrade  # update Cargo.toml, takes long
 
 # upgrade Cargo.lock
 cargo update
