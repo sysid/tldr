@@ -104,6 +104,9 @@ cargo install cargo-edit
 - Cargo will choose the latest compatible version for your dependencies according to the constraints, and then record the exact version in Cargo.lock.
 - This allows Cargo to automatically pick up non-breaking updates for your dependencies while maintaining reproducible builds.
 ```bash
+# local cache
+.cargo/registry  # can be deleted
+
 # show  dependencies [kbknapp/cargo-outdated](https://github.com/kbknapp/cargo-outdated/tree/6007f069790a150eff585ee33eafd8c390779bcb/)
 cargo install --locked cargo-outdated
 cargo outdated
