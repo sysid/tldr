@@ -41,7 +41,7 @@
 # Operations ............................................................................................
 - dev-dependencies documentation cannot be generated. Workaround: add it as regular dependency
 - examples of deps can be run directly, crates seem to be self sufficient
-- binary files for the cargo-edit commands (such as cargo-add, cargo-rm, and cargo-upgrade) are installed in the bin directory under the default Cargo home directory.
+- binary cargo extension commands (as cargo-add, cargo-rm, and cargo-upgrade) are installed in the bin directory under the default Cargo home directory.
 ```bash
 # create new project
 cargo new my_binary_project --bin
@@ -59,22 +59,15 @@ cargo tree --prefix none
 # list example targets
 cargo run --example
 
-# find dependencies that can optionally use a crate as well, e.g. Tokio has a feature flag to enable parking_lot, but I want to find all my dependencies that have similar feature flags.
-cargo metadata --format-version 1 | jq -c '.packages[] | select(
-    .dependencies | any(
-        (.name == "parking_lot")
-        and
-        (.optional == true)
-    )
-) | .name'
+# show help
+cargo test --help
+cargo test -- --help
 
-# find lib targets
-cargo metadata --format-version 1 | jq '.packages[].targets[] | select(.kind[] == "lib") | .name'
-# find example targets
-cargo metadata --format-version 1 | jq '.packages[].targets[] | select(.kind[] == "example") | .name'
+.cargo/registry  # local cache, can be deleted
 ```
 
 ## Installation/Upgrade
+### asdf
 - Gotcha: after asdf upgrade:
 ```bash
 cargo install cargo-release
@@ -101,27 +94,10 @@ cargo install cargo-edit
 
 
 # Dependency management ...........................................................................
-- Cargo will choose the latest compatible version for your dependencies according to the constraints, and then record the exact version in Cargo.lock.
-- This allows Cargo to automatically pick up non-breaking updates for your dependencies while maintaining reproducible builds.
+## 1. Check for Outdated Dependencies with `outdated`
 ```bash
-# local cache
-.cargo/registry  # can be deleted
-
 # show  dependencies [kbknapp/cargo-outdated](https://github.com/kbknapp/cargo-outdated/tree/6007f069790a150eff585ee33eafd8c390779bcb/)
 cargo install --locked cargo-outdated
-cargo outdated
-
-# upgrade Cargo.toml
-cargo install cargo-edit
-cargo upgrade  # update Cargo.toml, takes long
-
-# upgrade Cargo.lock
-cargo update
-```
-## Update Process
-### 1. Check for Outdated Dependencies
-```bash
-cargo install cargo-outdated
 cargo outdated
 
 🐍 v3.11.4 (rs-env-3.11) 🦀 v1.76.0  main ✗ ➜  cargo outdated
@@ -139,11 +115,13 @@ Each line of the output describes a dependency, potentially nested, within proje
 - **Platform**: This specifies platform-specific dependencies. For example, `cfg(windows)` means the dependency is only used when compiling for Windows platforms.
 - **"Removed" in Compat/Latest**: indicates that the dependency no longer exists in newer versions
 
-### 2. Update Dependencies
-- **Manual Update**: Edit the `Cargo.toml` file and change the versions of the dependencies to the versions you want (usually the latest ones shown by `cargo-outdated`).
-- **Automatic Update**: Use the `cargo update` command to automatically update the `Cargo.lock` file to the latest compatible versions as allowed by your `Cargo.toml` constraints.
-For major version updates (which are not covered by `cargo update` because they potentially include breaking changes), you need to manually edit `Cargo.toml`. Change the version numbers to the new major versions, then run:
+## 2. Update Dependencies
 ```bash
+# upgrade Cargo.toml
+cargo install cargo-edit
+cargo upgrade  # update Cargo.toml, takes long
+
+# upgrade Cargo.lock
 cargo update
 ```
 
@@ -151,9 +129,8 @@ cargo update
 
 # Structure ........................................................................................
 - [Package Layout - The Cargo Book](https://doc.rust-lang.org/cargo/guide/project-layout.html)
-A Rust project can have more than one Cargo.toml file if it's a workspace.
-- projects can be composed of multiple files (which are modules), that can be nested within folders (which are also modules).
-- In order to access the root of that module tree, you can always use the `crate::` prefix.
+- projects are composed of multiple files (modules), that can be nested within folders (which are also modules).
+- In order to address the root of that module tree, you can always use the `crate::` prefix.
 - workspaces, containing packages, containing crates, containing multiple source files belonging to different modules.
 - Cyclic dependencies are allowed between the modules, but not between the crates.
 
