@@ -28,8 +28,7 @@
 `aws cognito-idp admin-delete-user --username {{username}} --user-pool-id {{user_pool_id}}`
 
 
-# e4m  .............................................................................................
-- users are manually mainttained and backed-up daily
+# Custom  .............................................................................................
 - [WebEAM Integration](https://atc.bmwgroup.net/confluence/x/pSZRNw)
 - [interesting logout question](https://atc.bmwgroup.net/confluence/display/WEBEAM/questions/2872762983/aws-cognito-with-webeam.next-logout-issue)
 ```bash
@@ -37,3 +36,6 @@ aws cognito-idp list-user-pools --max-results 10
 ```
 ## Gotcha
 - password reset not working on CLI, use "Password forgot" flow
+
+## Resources
+[Is it safe to use ID tokens with Cognito authorizers?  | theburningmonk.com](https://theburningmonk.com/2024/09/is-it-safe-to-use-id-tokens-with-cognito-authorizers)
