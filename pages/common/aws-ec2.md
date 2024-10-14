@@ -43,6 +43,10 @@
 ```bash
 # Update the package repository and install the EPEL (Extra Packages for Enterprise Linux) repository, if not already installed:
 sudo yum update -y
+sudo yum search package-name
+sudo yum install package-name -y
+sudo yum install htop
+
 sudo amazon-linux-extras install -y postgresql14
 
 psql --version
