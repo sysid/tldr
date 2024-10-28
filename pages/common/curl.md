@@ -35,3 +35,21 @@
 - Resolve a hostname to a custom IP address, with [v]erbose output (similar to editing the `/etc/hosts` file for custom DNS resolution):
 
 `curl --verbose --resolve {{example.com}}:{{80}}:{{127.0.0.1}} {{http://example.com}}`
+
+
+# Custom ...........................................................................................
+## vpce
+```bash
+export vpc_endpoint=vpce-0363d6acb8ec27c49-zwjz5249.execute-api.eu-central-1.vpce.amazonaws.com
+export stage=tw
+export host=rb0zjk28hc.execute-api.eu-central-1.amazonaws.com
+curl --verbose \
+  --connect-timeout 5 \
+  --max-timeout 10 \
+  --globoff \
+  --noproxy '*' \
+  --header "Host: $host" \
+  https://$vpc_endpoint/$stage
+
+  #--header "X-Api-Key: $api_key" \
+```
