@@ -231,9 +231,8 @@ my_library = { path = "../my_library" }
 ```
 
 
-## Package
-- include a Cargo.toml file that describes how to build a bundle of 1+ crates.
-- many people use the term "crate" when they actually mean packages. This is because each package contains only one library crate that is assoziated with the package.
+## Package/Member
+- include a `Cargo.toml` file that describes how to build a bundle of 1+ crates.
 - Each package has its own `Cargo.toml` file.
 - A package can contain as many binary crates as you like, but at most only one library crate.
 - If a package contains `src/main.rs` and `src/lib.rs`, it has two crates: a binary and a library, both with the same name as the package.
