@@ -37,6 +37,7 @@
 
 
 # Custom ...........................................................................................
+- alternative: S3 sync
 ```bash
 rclone sync . tw-prod-bkp:/tw-prod-bkp/mac/data --progress
 ```
@@ -56,3 +57,14 @@ rclone sync . tw-prod-bkp:/tw-prod-bkp/mac/data --progress
 ───────┴───────────────────────────────────────────────────────────────────────────────────────────
 
 ```
+## ,hk
+```bash
+# rclone-data {{{ #
+rclone-data () {  ## sync directories to AWS
+  twpushd ~/data
+  AWS_PROFILE=tw-admin rclone sync . tw-prod-bkp:/tw-prod-bkp/mac/data --progress
+  twpopd
+}
+# }}} rclone #
+```
+
