@@ -119,7 +119,7 @@ Each line of the output describes a dependency, potentially nested, within proje
 ```bash
 # upgrade Cargo.toml
 cargo install cargo-edit
-cargo upgrade  # update Cargo.toml, takes long
+cargo upgrade --dry-run  # update Cargo.toml, takes long
 
 # upgrade Cargo.lock
 cargo update
